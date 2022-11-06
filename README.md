@@ -9,7 +9,8 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 - [x] : 1. DevExpress WPF 설치
 - [x] : 2. 개발 계획 세우기
 - [ ] : 3. 개발
-  - [ ] : 3.1 Docking 기능 부여 
+  - [x] : 3.1 Docking 기능 부여 
+  - [ ] : 3.2 DevExpress MVVM - Layout에 ViewModel 출력
 
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
@@ -86,3 +87,10 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   - [DevExpress WPF Docking Example](https://docs.devexpress.com/WPF/18275/mvvm-framework/services/predefined-set/document-services/dockingdocumentuiservice?p=netframework&f=dock)
   - [Docking Manager 부여하는 방법](https://www.youtube.com/watch?v=IcFQ1WR5mFU)
 
+<br><br>
+
+## 3.2 DevExpress MVVM - Layout에 ViewModel 출력
+
+- Dock 기능으로 나타난 Panel에 원하는 ViewModel를 MVVM으로 띄운다.
+- 참고사이트
+  - [DevExpress MVVM 만들기](https://youtu.be/-LL1UdHFkjc?t=600)
