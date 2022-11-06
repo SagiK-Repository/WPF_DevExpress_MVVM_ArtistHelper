@@ -94,3 +94,39 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 - Dock 기능으로 나타난 Panel에 원하는 ViewModel를 MVVM으로 띄운다.
 - 참고사이트
   - [DevExpress MVVM 만들기](https://youtu.be/-LL1UdHFkjc?t=600)
+  ```xml
+  <Window 
+      x:Class="ArtistWPFMVVMForm.MainViewModel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+      xmlns:dxi="http://schemas.devexpress.com/winfx/2008/xaml/core/internal"
+      xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+      xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+      xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+      xmlns:dxdove="http://schemas.devexpress.com/winfx/2008/xaml/docking/visualelements"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:ArtistWPFMVVMForm"
+      xmlns:Views="clr-namespace:ArtistWPFMVVMForm.Views"
+      mc:Ignorable="d"
+      Title="Artist_Jju" Height="800" Width="1000">
+      <Grid>
+          <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="530*"/>
+              <ColumnDefinition Width="471*"/>
+          </Grid.ColumnDefinitions>
+          <dxdo:DockLayoutManager>
+              <dxdo:LayoutGroup Caption="LayoutRoot">
+                  <dxdo:LayoutPanel Caption="Panel 1">
+                      <Views:RibbonView Grid.Column="1">
+                      </Views:RibbonView>
+                  </dxdo:LayoutPanel>
+                  <dxdo:LayoutPanel Caption="Panel 2"/>
+              </dxdo:LayoutGroup>
+          </dxdo:DockLayoutManager>
+          <Views:RibbonView Grid.Column="1">
+          </Views:RibbonView>
+      </Grid>
+  </Window>
+  ```
