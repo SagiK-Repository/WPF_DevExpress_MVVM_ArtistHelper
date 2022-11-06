@@ -7,7 +7,9 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 ### 목표
 - [x] : 1. DevExpress WPF 설치
-- [ ] : 2. 개발 계획 세우기
+- [x] : 2. 개발 계획 세우기
+- [ ] : 3. 개발
+  - [ ] : 3.1 Docking 기능 부여 
 
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
@@ -28,7 +30,7 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 - 무료로는 30일 Trials를 사용하자.
 - 설치 후 VisualStudio에서 새로만들 때 DevExpress 전용이 생성되는 것을 확인할 수 있다.
 
-<br>
+<br><br><br>
 
 # 2. 개발 계획 세우기
 
@@ -69,3 +71,18 @@ DevExpress MVVM WPF로 만든 ArtistHelper
     - 타원
     - 변형도형
   - Artist.cs : Artist 작업을 진행한다. (In : W, H, FigureType, LineGrid, EndPoint x y, BoxCount)
+
+<br><br><br>
+
+# 3. 개발
+
+<br><br>
+
+## 3.1 Docking 기능 부여
+
+- Docking 기능을 부여한다.
+- 참고 사이트
+  - [DevExpress WPF Docking LayoutManager](https://docs.devexpress.com/WPF/115547/controls-and-libraries/layout-management)
+  - [DevExpress WPF Docking Example](https://docs.devexpress.com/WPF/18275/mvvm-framework/services/predefined-set/document-services/dockingdocumentuiservice?p=netframework&f=dock)
+  - [Docking Manager 부여하는 방법](https://www.youtube.com/watch?v=IcFQ1WR5mFU)
+
