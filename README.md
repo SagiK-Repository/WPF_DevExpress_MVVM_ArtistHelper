@@ -10,7 +10,8 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 - [x] : 2. 개발 계획 세우기
 - [ ] : 3. 개발
   - [x] : 3.1 Docking 기능 부여 
-  - [ ] : 3.2 DevExpress MVVM - Layout에 ViewModel 출력
+  - [x] : 3.2 DevExpress MVVM - Layout에 ViewModel 출력
+  - [ ] : 3.3 DevExpress Ribbon 기능 부여
 
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
@@ -129,4 +130,56 @@ DevExpress MVVM WPF로 만든 ArtistHelper
           </Views:RibbonView>
       </Grid>
   </Window>
+  ```
+
+<br><br>
+
+## 3.3 DevExpress Ribbon 기능 부여
+
+- Ribbon기능을 추가한다.
+- 참고 사이트
+  - [DevExpress Ribbon 기능 추가 방법](https://www.youtube.com/watch?v=nnBAF26bVhc)
+- Ribbon에 Create, Save 버튼을 추가한다.
+  - [DevExpress Ribbon 모습 변경](https://youtu.be/nnBAF26bVhc?t=52)
+  - [DevExpress Button 부여 방법](https://youtu.be/nnBAF26bVhc?t=80)
+- Ribbon에 대한 자세한 설정은 DemoCentor의 WPF-Ribbon을 참고한다.
+  ```xml
+  <UserControl
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:ViewModels="clr-namespace:ArtistWPFMVVMForm.ViewModels"
+               xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" x:Class="ArtistWPFMVVMForm.Views.RibbonView"
+               xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+               mc:Ignorable="d"
+               d:DesignHeight="150" d:DesignWidth="500">
+      <UserControl.DataContext>
+          <ViewModels:RibbonViewModel/>
+      </UserControl.DataContext>
+      <Grid>
+          <dxr:RibbonControl RibbonStyle="Office2019">
+          
+              <dxr:RibbonPage Caption="Control">
+                  <dxr:RibbonPageGroup Caption="Image">
+                      <dxb:BarButtonItem x:Name="newBtn"
+                              Content="New"
+                              CloseSubMenuOnClick="True"
+                              KeyGesture="Ctrl+N"
+                              BarItemDisplayMode="ContentAndGlyph"
+                              Glyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"
+                              LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}">
+                      </dxb:BarButtonItem>
+                      <dxb:BarButtonItem x:Name="saveBtn"
+                              Content="Save"
+                              CloseSubMenuOnClick="True"
+                              KeyGesture="Ctrl+S"
+                              BarItemDisplayMode="ContentAndGlyph"
+                              Glyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"
+                              LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}" />
+                  </dxr:RibbonPageGroup>
+              </dxr:RibbonPage>        
+          </dxr:RibbonControl>
+      </Grid>
+  </UserControl>
   ```
