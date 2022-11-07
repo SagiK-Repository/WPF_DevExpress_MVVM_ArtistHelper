@@ -78,8 +78,6 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 # 3. 개발
 
-<br><br>
-
 ## 3.1 Docking 기능 부여
 
 - Docking 기능을 부여한다.
