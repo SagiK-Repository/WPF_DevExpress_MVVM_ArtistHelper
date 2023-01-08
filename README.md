@@ -7,6 +7,10 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 ### 목표
 
+- [ ] 1. ArtistHelper 프로그램 개요
+- [ ] DevExpress
+  - [ ] DevExpress 설치
+
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
 
