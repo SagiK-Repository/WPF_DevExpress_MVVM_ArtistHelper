@@ -532,4 +532,45 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 ### RibbonView.xaml UI 개발
 
+- RibbonView.xaml를 다음과 같이 구성한다.
+  ```xml
+  <UserControl x:Class="ArtistHelper.View.RibbonView"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+               xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+               xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:local="clr-namespace:ArtistHelper.View"
+               xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
+               mc:Ignorable="d"
+               d:DataContext="{d:DesignInstance {x:Type ViewModels:RibbonViewModel}}">
+      <dxr:RibbonControl ShowApplicationButton="False"
+                         ToolbarShowCustomizationButton="False"
+                         RibbonStyle="Office2019"
+                         RibbonHeaderVisibility="Collapsed">
+          <dxr:RibbonPage Caption="Control">
+              <dxr:RibbonPageGroup Caption="Image">
+                  <dxb:BarButtonItem x:Name="newBtn"
+                                     Content="New"
+                                     KeyGesture="Ctrl+N"
+                                     CloseSubMenuOnClick="True"
+                                     BarItemDisplayMode="ContentAndGlyph"
+                                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"
+                                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"/>
+                  <dxb:BarButtonItem x:Name="saveBtn"
+                                     Content="Save"
+                                     KeyGesture="Ctrl+S"
+                                     CloseSubMenuOnClick="True"
+                                     BarItemDisplayMode="ContentAndGlyph"
+                                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"
+                                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"/>
+              </dxr:RibbonPageGroup>
+          </dxr:RibbonPage>
+      </dxr:RibbonControl>
+  </UserControl>
+  ```
+  <img src="https://user-images.githubusercontent.com/66783849/214082371-284ccd8e-d176-4b7b-ad54-bd2d0df1b56d.png" width="350">
 
+<br>
