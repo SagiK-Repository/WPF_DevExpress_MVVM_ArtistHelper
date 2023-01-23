@@ -3,12 +3,79 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:local="clr-namespace:ArtistHelper.View"
              xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type ViewModels:PanelViewModel}}">
+    <dxlc:LayoutControl Padding="4"
+                        ItemSpace="4"
+                        Orientation="Vertical">
+        <!--#region Label & TextBox-->
+        <dxlc:LayoutItem Label="Width"
+                         VerticalAlignment="Top"
+                         InputScope="Default">
+            <TextBox MaxHeight="24"
+                     MaxLength="50"/>
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="Height"
+                         VerticalAlignment="Top"
+                         InputScope="Default">
+            <TextBox MaxHeight="24"
+                     MaxLength="50" />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="LineGrid"
+                         VerticalAlignment="Top"
+                         InputScope="Default">
+            <TextBox MaxHeight="24"
+                     MaxLength="50" />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="Rect Min Width"
+                         VerticalAlignment="Top"
+                         InputScope="Default">
+            <TextBox MaxHeight="24"
+                     MaxLength="50" />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="Rect Min Height"
+                         VerticalAlignment="Top"
+                         InputScope="Default">
+            <TextBox MaxHeight="24"
+                     MaxLength="50" />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="EndPoint X"
+                         VerticalAlignment="Top"
+                         InputScope="Default">
+            <TextBox MaxHeight="24"
+                     MaxLength="50" />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="EndPoint Y"
+                         VerticalAlignment="Top"
+                         InputScope="Default">
+            <TextBox MaxHeight="24"
+                     MaxLength="50" />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="Box Count"
+                         VerticalAlignment="Top"
+                         InputScope="Default">
+            <TextBox MaxHeight="24"
+                     MaxLength="50" />
+        </dxlc:LayoutItem>
+        <dxlc:LayoutItem Label="Figure Type"
+                         VerticalAlignment="Top"
+                         InputScope="Default">
+            <ComboBox HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Width="Auto">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </dxlc:LayoutItem>
+        <!--#endregion-->
 
-    <Grid>
-
-    </Grid>
+    </dxlc:LayoutControl>
 </UserControl>
