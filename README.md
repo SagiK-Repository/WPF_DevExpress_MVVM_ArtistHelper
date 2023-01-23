@@ -90,3 +90,51 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 
 <br><br><br>
+
+# 3. ArtistHelper 개발
+
+## 3-1 기본 구축
+
+### 프로젝트 구축
+
+- 프로젝트 생성
+  - `WPF 앱(.NET Framework)` 프로젝트 생성 (.Net Framework 4.8)  
+  <img src="https://user-images.githubusercontent.com/66783849/214012083-ec8c1da4-c97c-47a6-b0d8-cf98a56011df.png" width="650">
+- 폴더 구축  
+  - View 폴더 생성
+  - ViewModel 폴더
+  - Model 폴더
+  - Interface 폴더
+  - MainWindow.xaml 삭제  
+  <img src="https://user-images.githubusercontent.com/66783849/214014928-460bdfef-7a63-46c2-9bf1-9810222d728a.png" width="">
+
+<br>
+
+## 3-2 DevExpess
+
+- 
+
+## 3-3 MVVM
+
+### MVVM 구조 구축
+- View 폴더 생성
+  - DrawView.xaml 생성 (WPF 창 생성)
+  - MainView.xaml
+  - PannelView.xaml
+  - RibbonView.xaml
+- ViewModel 폴더
+  - DrawViewModel.cs
+  - MainViewModel.cs
+  - PannelViewModel.cs
+  - RibbonViewModel.cs
+- Model 폴더
+  - ArtistModel.cs
+  - PanelModel.cs
+  - DrawModel.cs
+- Interface 폴더
+  - IWindowView.cs  
+  <img src="https://user-images.githubusercontent.com/66783849/214014621-eb28b550-a95d-4515-b532-55f4f005ee4a.png" width="350">
+
+<br>
+
+### 기본 세팅
