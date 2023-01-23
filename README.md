@@ -66,3 +66,27 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 - Git을 이용해 코드를 관리한다
 
 <br><br><br>
+
+# 2. ArtistHelper 설계
+
+## 2-1 개발환경 설계
+
+### Visual Studio
+
+- Visual Studio 2022
+- Debug, Release(배포)
+- AnyCPU (x32, x64)
+
+### Project
+
+- WPF 앱 (.NET Framework)
+- .Net Framework 4.8
+- DevExpress 22.1
+
+### Test
+
+- xUnit
+- FluentAssertion
+
+
+<br><br><br>
