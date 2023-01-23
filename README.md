@@ -13,15 +13,18 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   - [x] 요구사항 총족을 위한 기술적 내용
 - [ ] 2. ArtistHelper 설계
   - [ ] 개발 환경 설계
-- [ ] 3. ArtistHelper 개발
+- [x] 3. ArtistHelper 기본 구축
   - [x] 기본 구축
     - [x] 프로젝트 구축
     - [x] DevExpress
       - [x] DevExpress 설치
     - [x] MVVM
       - [x] MVVM 구조 구축
-    - [ ] Test
-      - [ ] Test 기본 세팅
+      - [x] MVVM 기본 세팅
+    - [x] Test
+      - [x] Test 기본 세팅
+- [ ] 4. ArtistHelper 개발
+
 
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
@@ -90,7 +93,7 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 <br><br><br>
 
-# 3. ArtistHelper 개발
+# 3. ArtistHelper 기본 구축
 
 ## 3-1 기본 구축
 
@@ -302,3 +305,25 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 <br><br>
 
 ## 3-4 Test
+
+- Test 프로젝트 구성
+  - `단위 테스트 프로젝트(.NET Framework)` 프로젝트 생성
+- Test Nuget Pakage 구성 (참조-NuGet패키지관리)
+  - xUnit 추가
+  - xUnit.runner.visualstudio 추가
+  - FluentAssertion 추가
+- 프로젝트 폴더 및 파일 구성
+  - ViewModel
+    - DrawViewModel.Test.cs
+    - MainViewModel.Test.cs
+    - RibbonViewModel.Test.cs
+    - PanelViewModel.Test.cs
+  - Model
+    - ArtistModel.Test.cs
+    - PanelModel.Test.cs
+    - DrawModel.Test.cs  
+  <img src="https://user-images.githubusercontent.com/66783849/214026846-2a32e517-e4e6-4fae-842c-06ce4346543d.png">
+
+<br><br><br>
+
+# 4. ArtistHelper 개발
