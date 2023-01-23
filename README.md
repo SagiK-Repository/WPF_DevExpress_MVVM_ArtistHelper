@@ -7,22 +7,21 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 ### 목표
 
-- [ ] [1. ArtistHelper 프로그램 개요](https://github.com/SagiK-Repository/WPF_DevExpress_MVVM_ArtistHelper/blob/main/Contents/1.%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%20%EA%B0%9C%EC%9A%94.md)
-  - [ ] 개요
-  - [ ] 요구사항
-  - [ ] 요구사항 총족을 위한 기술적 내용
-- [ ] [2. ArtistHelper 설계]
+- [x] 1. ArtistHelper 프로그램 개요
+  - [x] 개요
+  - [x] 요구사항
+  - [x] 요구사항 총족을 위한 기술적 내용
+- [ ] 2. ArtistHelper 설계
   - [ ] 개발 환경 설계
-- [ ] [3. ArtistHelper 개발]
-  - [ ] 기본 구축
-    - [ ] 프로젝트 구축
-    - [ ] DevExpress
-      - [ ] DevExpress 설치
-    - [ ] MVVM
-      - [ ] MVVM 구조 구축
+- [ ] 3. ArtistHelper 개발
+  - [x] 기본 구축
+    - [x] 프로젝트 구축
+    - [x] DevExpress
+      - [x] DevExpress 설치
+    - [x] MVVM
+      - [x] MVVM 구조 구축
     - [ ] Test
       - [ ] Test 기본 세팅
-    - [ ] 기본 세팅
 
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
@@ -151,4 +150,155 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 <br>
 
-### 기본 세팅
+### MVVM 기본 세팅
+
+- App.xaml
+  - `StartupUri="MainWindow.xaml"` 제거
+  ```xml
+  <Application x:Class="ArtistHelper.App"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="clr-namespace:ArtistHelper">
+      <Application.Resources>
+           
+      </Application.Resources>
+  </Application>
+  ```
+- MainViewModel, MainView 세팅
+  - MainView.xaml를 다음과 같이 세팅한다.
+    - `Title="ArtistHelper" Height = 800, Width = 1000`
+  - MainViewModel.cs를 다음과 같이 세팅한다.
+    - 특히 public으로 선언하는 것을 주의할 것
+  ```cs
+  namespace ArtistHelper.ViewModel
+  {
+      public class MainViewModel
+      {
+          #region 변수
+          #endregion
+          
+          #region 프로퍼티
+          #endregion
+          
+          #region 생성자
+          #endregion
+  
+          #region 메소드
+          #endregion
+      }
+  }
+  ```
+  - IWindowView.cs를 다음과 같이 구성한다.
+  ```cs
+  using System.Windows;
+  
+  public interface IWindowView
+  {
+      void Show();
+  
+      void Close();
+  
+      Visibility Visibility { get; set; }
+  }
+  ```
+  - MainView.xaml.cs를 다음과 같이 세팅한다.
+  ```cs
+  using ArtistHelper.ViewModel;
+  using System.Windows;
+  
+  namespace ArtistHelper.View
+  {
+      public partial class MainView : Window, IWindowView
+      {
+          public MainView(MainViewModel mainViewModel)
+          {
+              InitializeComponent();
+              DataContext = mainViewModel;
+          }
+      }
+  }
+  ```
+- App.xaml.cs 세팅
+  ```cs
+  using ArtistHelper.View;
+  using ArtistHelper.ViewModel;
+  using System.Windows;
+  
+  namespace ArtistHelper
+  {
+      public partial class App : Application
+      {
+          protected override void OnStartup(StartupEventArgs e)
+          {
+              base.OnStartup(e);
+  
+              MainViewModel mainViewModel = new MainViewModel();
+              MainView mainView = new MainView(mainViewModel);
+  
+              mainView.Show();
+  
+          }
+      }
+  }
+  ```
+- ViewModel - View 관계 세팅
+  - 모든 ViewModel 및 View를 다음과 같이 세팅한다.
+  - DrawView.xaml
+    - UserControl로 바꾼다.
+    - `Title`, `Width`, `Height`을 제거한다
+  ```xml
+  <UserControl x:Class="ArtistHelper.View.DrawView"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:local="clr-namespace:ArtistHelper.View"
+          mc:Ignorable="d">
+      <Grid>
+          
+      </Grid>
+  </UserControl>
+  ```
+  - DrawView.xaml.cs
+    - 상속을 UserControl로 변경한다
+  ```cs
+  namespace ArtistHelper.View
+  {
+      public partial class DrawView : UserControl
+      {
+          public DrawView(DrawViewModel drawViewModel)
+          {
+              InitializeComponent();
+              DataContext = drawViewModel;
+          }
+      }
+  }
+  ```
+  - DrawViewModel.cs
+  ```cs
+  namespace ArtistHelper.ViewModel
+  {
+      public class DrawViewModel
+      {
+          #region 변수
+          #endregion
+          
+          #region 프로퍼티
+          #endregion
+          
+          #region 생성자
+          #endregion
+  
+          #region 메소드
+          #endregion
+      }
+  }
+  ```
+- <kbd>Ctrl</kbd> + <kbd>F5</kbd>를 통해 빌드 후 디버깅 실행해본다
+- 프로세스 실행에 의한 오류시, 오류창에 나타난 프로세스 번호를 제거한다.
+  - cmd를 열어 `taskkill /pid 24960 /f`를 입력한다. (숫자는 해당하는 Process 번호 입력)  
+  <img src="https://user-images.githubusercontent.com/66783849/214023972-f6be3614-554e-40ee-8730-bfbcc84065e8.png" width="350">
+
+<br><br>
+
+## 3-4 Test
