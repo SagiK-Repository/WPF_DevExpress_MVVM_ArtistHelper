@@ -4,9 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtistHelper.View"
+        xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
         mc:Ignorable="d"
-        Title="ArtistHelper" Height="800" Width="1000">
+        Title="ArtistHelper"
+        Height="800"
+        Width="1000"
+        d:DataContext="{d:DesignInstance {x:Type ViewModels:MainViewModel}}">
     <Grid>
-        
+
+        <!--#region Grid.RowDefinitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--#endregion-->
+
+        <!--#region RibbonView-->
+        <UserControl Content="{Binding RibbonViews}" />
+        <!--#endregion-->
+
     </Grid>
 </Window>

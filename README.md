@@ -169,7 +169,9 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   ```
 - MainViewModel, MainView 세팅
   - MainView.xaml를 다음과 같이 세팅한다.
-    - `Title="ArtistHelper" Height = 800, Width = 1000`
+    - (+) `Title="ArtistHelper" Height = 800, Width = 1000`
+    - (+) `xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"`
+    - (+) `d:DataContext="{d:DesignInstance {x:Type ViewModels:MainViewModel}}"`
   - MainViewModel.cs를 다음과 같이 세팅한다.
     - 특히 public으로 선언하는 것을 주의할 것
   ```cs
@@ -256,7 +258,9 @@ DevExpress MVVM WPF로 만든 ArtistHelper
           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
           xmlns:local="clr-namespace:ArtistHelper.View"
-          mc:Ignorable="d">
+          xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
+          mc:Ignorable="d"
+          d:DataContext="{d:DesignInstance {x:Type ViewModels:DrawViewModel}}">
       <Grid>
           
       </Grid>

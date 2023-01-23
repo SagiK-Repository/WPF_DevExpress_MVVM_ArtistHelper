@@ -2,9 +2,9 @@
 
 namespace ArtistHelper.View
 {
-    public partial class PannelView : UserControl
+    public partial class PanelView : UserControl
     {
-        public PannelView()
+        public PanelView()
         {
             InitializeComponent();
         }
