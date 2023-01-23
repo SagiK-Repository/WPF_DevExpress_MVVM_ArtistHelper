@@ -418,5 +418,118 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   </Window>
   ```
 
-### PanelView UI 개발
+<br>
+
+### PanelView.xaml UI 개발
+
+- PanelView.xaml을 다음과 같이 구성한다.
+  ```xml
+  <UserControl x:Class="ArtistHelper.View.PanelView"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+               xmlns:local="clr-namespace:ArtistHelper.View"
+               xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
+               mc:Ignorable="d"
+               d:DataContext="{d:DesignInstance {x:Type ViewModels:PanelViewModel}}">
+      <dxlc:LayoutControl Padding="4"
+                          ItemSpace="4"
+                          Orientation="Vertical">
+          <!--#region Label & TextBox-->
+          <dxlc:LayoutItem Label="Width"
+                           VerticalAlignment="Top"
+                           InputScope="Default">
+              <TextBox MaxHeight="24"
+                       MaxLength="50"/>
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Height"
+                           VerticalAlignment="Top"
+                           InputScope="Default">
+              <TextBox MaxHeight="24"
+                       MaxLength="50" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="LineGrid"
+                           VerticalAlignment="Top"
+                           InputScope="Default">
+              <TextBox MaxHeight="24"
+                       MaxLength="50" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Rect Min Width"
+                           VerticalAlignment="Top"
+                           InputScope="Default">
+              <TextBox MaxHeight="24"
+                       MaxLength="50" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Rect Min Height"
+                           VerticalAlignment="Top"
+                           InputScope="Default">
+              <TextBox MaxHeight="24"
+                       MaxLength="50" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="EndPoint X"
+                           VerticalAlignment="Top"
+                           InputScope="Default">
+              <TextBox MaxHeight="24"
+                       MaxLength="50" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="EndPoint Y"
+                           VerticalAlignment="Top"
+                           InputScope="Default">
+              <TextBox MaxHeight="24"
+                       MaxLength="50" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Box Count"
+                           VerticalAlignment="Top"
+                           InputScope="Default">
+              <TextBox MaxHeight="24"
+                       MaxLength="50" />
+          </dxlc:LayoutItem>
+          <dxlc:LayoutItem Label="Figure Type"
+                           VerticalAlignment="Top"
+                           InputScope="Default">
+              <ComboBox HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="Auto">
+                  <ComboBox.ItemTemplate>
+                      <DataTemplate>
+                          <StackPanel Orientation="Horizontal">
+                              <TextBlock Text="{Binding Name}" />
+                          </StackPanel>
+                      </DataTemplate>
+                  </ComboBox.ItemTemplate>
+              </ComboBox>
+          </dxlc:LayoutItem>
+          <!--#endregion-->
+  
+      </dxlc:LayoutControl>
+  </UserControl>
+  ```
+- MainViewModel.cs를 다음과 같이 구성한다.
+  ```cs
+  #region 생성자
+  public MainViewModel()
+  {
+      Initialize();
+  }
+  #endregion
+
+  #region 메소드
+  void Initialize()
+  {
+      RibbonViewModels = new RibbonViewModel();
+      RibbonViews = new RibbonView(RibbonViewModels);
+
+      PanelViewModels = new PanelViewModel();
+      PanelViews = new PanelView(PanelViewModels);
+  }
+  #endregion
+  ```
+  <img src="https://user-images.githubusercontent.com/66783849/214079359-4a0fd961-e649-4f45-b249-dc41fa82914c.png" width="350">
+
+<br>
+
+### RibbonView.xaml UI 개발
+
 
