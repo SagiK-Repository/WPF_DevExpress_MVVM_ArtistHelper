@@ -573,4 +573,106 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   ```
   <img src="https://user-images.githubusercontent.com/66783849/214082371-284ccd8e-d176-4b7b-ad54-bd2d0df1b56d.png" width="350">
 
-<br>
+<br><br>
+
+## ViewModel(기능) 개발
+
+### RibbonViewModel.cs 개발
+
+- RibbonViewModel에 Command를 연결하고, MainViewModel로 Messenger를 전달한다.
+  ```cs
+  #region 커멘드
+  public ICommand NewCommand { get; set; }
+  public ICommand SaveCommand { get; set; }
+  #endregion
+
+  #region 생성자
+  public RibbonViewModel()
+  {
+      SaveCommand = new DelegateCommand(_saveCommandAction);
+      NewCommand = new DelegateCommand(_newCommandAction);
+  }
+  #endregion
+
+  #region 메소드
+  private void _saveCommandAction()
+  {
+      Messenger.Default.Send("SavePanel");
+  }
+
+  private void _newCommandAction()
+  {
+      Messenger.Default.Send("NewPanel");
+  }
+  #endregion
+  ```
+  ```xml
+  <dxb:BarButtonItem x:Name="newBtn"
+                     Content="New"
+                     KeyGesture="Ctrl+N"
+                     CloseSubMenuOnClick="True"
+                     Command="{Binding Path=NewCommand}"
+                     BarItemDisplayMode="ContentAndGlyph"
+                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"
+                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"/>
+  <dxb:BarButtonItem x:Name="saveBtn"
+                     Content="Save"
+                     KeyGesture="Ctrl+S"
+                     CloseSubMenuOnClick="True"
+                     Command="{Binding Path=SaveCommand}"
+                     BarItemDisplayMode="ContentAndGlyph"
+                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"
+                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"/>
+  ```
+- MainViewModel은 다음과 같이 추가한다.
+  ```cs
+  #region 메소드
+  void Initialize()
+  {
+      RibbonViewModels = new RibbonViewModel();
+      RibbonViews = new RibbonView(RibbonViewModels);
+
+      PanelViewModels = new PanelViewModel();
+      PanelViews = new PanelView(PanelViewModels);
+
+      Messenger.Default.Register<string>(this, OnMessage);
+  }
+  #endregion
+
+  #region Messenger Method
+  private void OnMessage(string text)
+  {
+      if (text == null || text.Length == 0)
+          return;
+
+      var messengerType = StringToMessenger(text);
+
+      switch (messengerType)
+      {
+          case _messengerType.SavePanel:
+              MessageBox.Show("SavePanel");
+              break;
+
+          case _messengerType.NewPanel:
+              MessageBox.Show("NewPanel");
+              break;
+
+          default:
+              break;
+      }
+  }
+
+  private _messengerType StringToMessenger(string message)
+  {
+      var type = default(_messengerType);
+      foreach (_messengerType t in Enum.GetValues(typeof(_messengerType)))
+          if (t.ToString().StartsWith(message, StringComparison.CurrentCultureIgnoreCase))
+          {
+              type = t;
+              break;
+          }
+
+      return type;
+  }
+  #endregion
+  ```
