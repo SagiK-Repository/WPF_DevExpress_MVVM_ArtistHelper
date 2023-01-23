@@ -37,9 +37,21 @@ namespace ArtistHelper.ViewModel
         #endregion
 
         #region 생성자
+        public MainViewModel()
+        {
+            Initialize();
+        }
         #endregion
 
         #region 메소드
+        void Initialize()
+        {
+            RibbonViewModels = new RibbonViewModel();
+            RibbonViews = new RibbonView(RibbonViewModels);
+
+            PanelViewModels = new PanelViewModel();
+            PanelViews = new PanelView(PanelViewModels);
+        }
         #endregion
     }
 }
