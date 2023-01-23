@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 
-namespace ArtistHelper.Interface
+public interface IWindowView
 {
-    internal class IWindowView
-    {
-    }
+    void Show();
+
+    void Close();
+
+    Visibility Visibility { get; set; }
 }
