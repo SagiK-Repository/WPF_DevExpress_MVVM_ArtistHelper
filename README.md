@@ -123,6 +123,7 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   - DevExpress.Xpf.Core
   - DevExpress.Xpf.Docking
   - DevExpress.Xpf.Layout.Core
+  - DevExpress.Xpf.LayoutControl
   - DevExpress.Xpf.Ribbon  
   <img src="https://user-images.githubusercontent.com/66783849/214018272-67d2e82d-8f95-48c2-94c7-6cde4e82a52c.png" width="350">  
   <img src="https://user-images.githubusercontent.com/66783849/214018323-cf6a1e81-13cd-44ff-917c-2b09f876ebf2.png" width="350">
@@ -332,7 +333,7 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 # 4. ArtistHelper 개발
 
-## View 개발
+## View(UI) 개발
 
 ### MainView.xaml
 
@@ -365,6 +366,57 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   }
   ```
 - 다음과 같이 UserControl를 사용하여 View를 대입한다.
-  ```xaml
-
+  ```xml
+  <Window x:Class="ArtistHelper.View.MainView"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+          xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:local="clr-namespace:ArtistHelper.View"
+          xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
+          mc:Ignorable="d"
+          Title="ArtistHelper"
+          Height="800"
+          Width="1000"
+          d:DataContext="{d:DesignInstance {x:Type ViewModels:MainViewModel}}">
+      <Grid>
+          <!--#region Grid.RowDefinitions-->
+          <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <!--#endregion-->
+  
+          <!--#region RibbonView-->
+          <UserControl Content="{Binding RibbonViews}" />
+          <!--#endregion-->
+  
+          <dxdo:LayoutGroup Caption="LeftLayout"
+                            Grid.Row="1"
+                            Margin="4">
+  
+              <!--#region PannelView-->
+              <dxdo:LayoutPanel Caption="Control Tool"
+                                MinWidth="250"
+                                ItemWidth="250"
+                                Content="{Binding PanelViews}"
+                                AllowClose="False" />
+              <!--#endregion-->
+  
+              <!--#region DrawView-->
+              <dxdo:LayoutGroup ItemWidth="3*"
+                                DestroyOnClosingChildren="False">
+                  <dxdo:DocumentGroup DestroyOnClosingChildren="False"
+                                      ClosePageButtonShowMode="InAllTabPageHeaders">
+                  </dxdo:DocumentGroup>
+              </dxdo:LayoutGroup>
+              <!--#endregion-->
+  
+          </dxdo:LayoutGroup>
+      </Grid>
+  </Window>
   ```
+
+### PanelView UI 개발
+
