@@ -4,3 +4,7 @@ Presentation/~$ArtistHelper.pptx
 *.vsidx
 *.lock
 *.suo
+Project/ArtistHelper/ArtistHelper/obj/Debug/ArtistHelper.csproj.AssemblyReference.cache
+*.cache
+*.lref
+Project/ArtistHelper/ArtistHelper/obj
