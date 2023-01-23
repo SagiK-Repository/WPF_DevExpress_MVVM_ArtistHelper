@@ -12,6 +12,40 @@
         Width="1000"
         d:DataContext="{d:DesignInstance {x:Type ViewModels:MainViewModel}}">
     <Grid>
+        
+        <!--#region Grid.RowDefinitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--#endregion-->
 
+        <!--#region RibbonView-->
+        <UserControl Content="{Binding RibbonViews}" />
+        <!--#endregion-->
+
+        <dxdo:LayoutGroup Caption="LeftLayout"
+                          Grid.Row="1"
+                          Margin="4">
+
+            <!--#region PannelView-->
+            <dxdo:LayoutPanel Caption="Control Tool"
+                              MinWidth="250"
+                              ItemWidth="250"
+                              Content="{Binding PanelViews}"
+                              AllowClose="False" />
+            <!--#endregion-->
+
+            <!--#region DrawView-->
+            <dxdo:LayoutGroup ItemWidth="3*"
+                              DestroyOnClosingChildren="False">
+                <dxdo:DocumentGroup DestroyOnClosingChildren="False"
+                                    ClosePageButtonShowMode="InAllTabPageHeaders">
+                    <!--ItemsSource="{Binding LayoutPanels}" SelectedTabIndex="{Binding SelectIndex, UpdateSourceTrigger=PropertyChanged}"-->
+                </dxdo:DocumentGroup>
+            </dxdo:LayoutGroup>
+            <!--#endregion-->
+
+        </dxdo:LayoutGroup>
     </Grid>
 </Window>
