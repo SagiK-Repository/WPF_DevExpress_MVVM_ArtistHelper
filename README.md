@@ -331,3 +331,40 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 <br><br><br>
 
 # 4. ArtistHelper 개발
+
+## View 개발
+
+### MainView.xaml
+
+- MainViewModel.cs에 프로퍼티를 다음과 같이 구성한다.
+  ```cs
+  public class MainViewModel : ViewModelBase
+  {    
+      #region 프로퍼티
+      public RibbonView RibbonViews
+      {
+          get { return GetProperty(() => RibbonViews); }
+          set { SetProperty(() => RibbonViews, value); }
+      }
+      public RibbonViewModel RibbonViewModels
+      {
+          get { return GetProperty(() => RibbonViewModels); }
+          set { SetProperty(() => RibbonViewModels, value); }
+      }
+      public PanelView PanelViews
+      {
+          get { return GetProperty(() => PanelViews); }
+          set { SetProperty(() => PanelViews, value); }
+      }
+      public PanelViewModel PanelViewModels
+      {
+          get { return GetProperty(() => PanelViewModels); }
+          set { SetProperty(() => PanelViewModels, value); }
+      }
+      #endregion
+  }
+  ```
+- 다음과 같이 UserControl를 사용하여 View를 대입한다.
+  ```xaml
+
+  ```
