@@ -81,7 +81,7 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 - WPF 앱 (.NET Framework)
 - .Net Framework 4.8
-- DevExpress 22.1
+- DevExpress 22.2.3
 
 ### Test
 
@@ -106,13 +106,27 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   - Model 폴더
   - Interface 폴더
   - MainWindow.xaml 삭제  
-  <img src="https://user-images.githubusercontent.com/66783849/214014928-460bdfef-7a63-46c2-9bf1-9810222d728a.png" width="">
+  <img src="https://user-images.githubusercontent.com/66783849/214014928-460bdfef-7a63-46c2-9bf1-9810222d728a.png">
 
-<br>
+<br><br>
 
 ## 3-2 DevExpess
 
-- 
+- DevExpress 설치
+  - [DevExpress 사이트](https://www.devexpress.com/products/net/controls/wpf/)
+- DevExpress 참조 추가
+  - DevExpress.Data.Desktop
+  - DevExpress.Data
+  - DevExpress.Mvvm
+  - DevExpress.Xpf.Core
+  - DevExpress.Xpf.Docking
+  - DevExpress.Xpf.Layout.Core
+  - DevExpress.Xpf.Ribbon  
+  <img src="https://user-images.githubusercontent.com/66783849/214018272-67d2e82d-8f95-48c2-94c7-6cde4e82a52c.png" width="350">  
+  <img src="https://user-images.githubusercontent.com/66783849/214018323-cf6a1e81-13cd-44ff-917c-2b09f876ebf2.png" width="350">
+
+
+<br><br>
 
 ## 3-3 MVVM
 
