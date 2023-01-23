@@ -9,3 +9,5 @@ Project/ArtistHelper/ArtistHelper/obj/Debug/ArtistHelper.csproj.AssemblyReferenc
 *.lref
 Project/ArtistHelper/ArtistHelper/obj
 Project/ArtistHelper/ArtistHelper/bin
+Project/ArtistHelper/ArtistHelper.test/obj
+Project/ArtistHelper/packages
