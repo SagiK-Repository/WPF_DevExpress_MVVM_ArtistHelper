@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtistHelper", "ArtistHelper\ArtistHelper.csproj", "{FE8F01E9-0359-4870-934E-CBB02A00CCB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtistHelper.test", "ArtistHelper.test\ArtistHelper.test.csproj", "{4462F255-6BD3-4D06-BB72-F48D2FC5DB7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FE8F01E9-0359-4870-934E-CBB02A00CCB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE8F01E9-0359-4870-934E-CBB02A00CCB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE8F01E9-0359-4870-934E-CBB02A00CCB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4462F255-6BD3-4D06-BB72-F48D2FC5DB7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4462F255-6BD3-4D06-BB72-F48D2FC5DB7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4462F255-6BD3-4D06-BB72-F48D2FC5DB7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4462F255-6BD3-4D06-BB72-F48D2FC5DB7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
