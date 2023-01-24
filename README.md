@@ -682,6 +682,7 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 ### ArtistModel.cs 개발
 
+- ArtistModel.cs를 다음과 같이 구성한다.
   ```cs
   #region 프로퍼티
   public int Width { get; set; } // 이미지 가로 사이즈
@@ -697,18 +698,7 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   #endregion
 
   #region 생성자
-  public ArtistModel(int width, int height, int lineGrid, int
-  {
-      Width = width;
-      Height = height;
-      LineGrid = lineGrid;
-      MinWidth = minWidth;
-      MinHeight = minHeight;
-      EndPointX = endPointX;
-      EndPointY = endPointY;
-      BoxCount = boxCount;
-      FigureType = figureType;
-  }
+  public ArtistModel() { }
   public ArtistModel(ArtistModel artists)
   {
       Width = artists.Width;
@@ -723,6 +713,186 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   }
   #endregion
   ```
+
+<br>
+
+### ArtistModel DDD형식 구현
+
+- 아래는 Width 변수에 대해서 DDD로 구현하였다. 나머지 변수들도 특성에 맞게 구현한다.
+  ```cs
+  public abstract class ValueObject
+     {
+         protected static bool EqualOperator(ValueObject left, ValueObject right)
+         {
+             if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+             {
+                 return false;
+             }
+             return ReferenceEquals(left, right) || left.Equals(right);
+         }
+ 
+         protected static bool NotEqualOperator(ValueObject left, ValueObject right)
+         {
+             return !(EqualOperator(left, right));
+         }
+ 
+         protected abstract IEnumerable<object> GetEqualityComponents();
+ 
+         public override bool Equals(object obj)
+         {
+             if (obj == null || obj.GetType() != GetType())
+             {
+                 return false;
+             }
+ 
+             var other = (ValueObject)obj;
+ 
+             return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+         }
+ 
+         public override int GetHashCode()
+         {
+             return GetEqualityComponents()
+                 .Select(x => x != null ? x.GetHashCode() : 0)
+                 .Aggregate((x, y) => x ^ y);
+         }
+         public static bool operator ==(ValueObject one, ValueObject two)
+         {
+             return EqualOperator(one, two);
+         }
+ 
+         public static bool operator !=(ValueObject one, ValueObject two)
+         {
+             return NotEqualOperator(one, two);
+         }
+     }
+ 
+  public class Width : ValueObject
+  {
+      private int _minValue = 0;
+      private int _maxValue = 2000;
+      private int _value;
+ 
+      public Width() => _value = 0;
+ 
+      public Width(int value)
+      {
+          ModifyValue(value);
+      }
+      public Width(int value, int minValue, int maxValue) : this(value)
+      {
+          SetMinValue(minValue);
+          SetMaxValue(maxValue);
+      }
+ 
+      public void  ModifyValue(int value)
+      {
+          //if(value == null) throw new ArgumentNullException(nameof(value));
+ 
+          if (value < _minValue)
+          {
+              _value = _minValue;
+              throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+          }
+ 
+          if (value > _maxValue)
+          {
+              _value = _maxValue;
+              throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+          }
+ 
+          _value = value;
+      }
+      public void SetMinValue(int value)
+      {
+          if(value > _maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
+          
+          if (_value < value)
+          {
+              _value = value;
+              _minValue = value;
+              throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 작습니다. 임의로 Value값을 조정합니다.");
+          }
+          _minValue = value;
+      }
+      public void SetMaxValue(int value)
+      {
+          if (value < _minValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
+ 
+          if (_value > value)
+          {
+              _value = value;
+              _maxValue = value;
+              throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 큽니다. 임의로 Value값을 조정합니다.");
+          }
+          _maxValue = value;
+      }
+      public void SetMinMaxValue(int minValue, int maxValue)
+      {
+          _minValue = minValue;
+          _maxValue = maxValue;
+      }
+      public int GetValue()
+      {
+          return _value;
+      }
+      protected override IEnumerable<object> GetEqualityComponents()
+      {
+          yield return _value;
+      }
+  }
+  ```
+- 프로퍼티를 다음과 같이 구성한다.
+  ```cs
+  #region 프로퍼티
+  public Width Width { get; set; } // 이미지 가로 사이즈
+  ```
+
+<br>
+
+### ArtistModel DDD형식 Test
+
+- DDD Value를 Test 하기 위해, 다음과 같이 Test 프로젝트 참조에서 Artist 프로젝트를 추가한다.
+  <img src="https://user-images.githubusercontent.com/66783849/214193649-9e73d3b5-02d4-4a95-b371-9848d2cac22c.png" width="500">
+- 다음과 같이 코드를 구성한다.
+  ```cs
+  using ArtistHelper.Model;
+  using FluentAssertions;
+  using Xunit;
+  
+  namespace ArtistHelper.test.Model
+  {
+      public class ArtistModel_Test
+      {
+          #region DDD Value Test
+          [Fact(DisplayName = "DDD Value - Artist.Width")]
+          public void DDDTest_Width_Test()
+          {
+              //Arange
+              var width = new Width(0);
+  
+              //Act
+              bool isBool = width.GetValue() == 0;
+  
+              //Asserts
+              isBool.Should().BeTrue();
+          }
+          #endregion
+      }
+  }
+  ```
+- 테스트 탐색기를 열어, 테스트를 진행한다.
+  <img src="https://user-images.githubusercontent.com/66783849/214194526-c04c9b2f-e27f-411a-a695-8627c511bb7b.png" width="700">
+  
+
+<br>
+
+
+### PanelModel.cs 개발
+
+<br>
+
+### PanelViewModel.cs 개발
 
 <br>
 
