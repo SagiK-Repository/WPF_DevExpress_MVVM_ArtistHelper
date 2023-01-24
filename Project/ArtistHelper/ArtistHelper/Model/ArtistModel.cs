@@ -1,9 +1,18 @@
-﻿namespace ArtistHelper.Model
+﻿using DevExpress.Mvvm.Native;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Windows;
+
+namespace ArtistHelper.Model
 {
     public class ArtistModel
     {
         #region 프로퍼티
-        public int Width { get; set; } // 이미지 가로 사이즈
+        public Width Width { get; set; } // 이미지 가로 사이즈
         public int Height { get; set; } // 이미지 세로 사이즈
         public int LineGrid { get; set; } // 선 굵기
         public int MinWidth { get; set; } // 사각형 최소 가로 길이
@@ -16,18 +25,7 @@
         #endregion
 
         #region 생성자
-        public ArtistModel(int width, int height, int lineGrid, int minWidth, int minHeight, int endPointX, int endPointY, int boxCount, int figureType)
-        {
-            Width = width;
-            Height = height;
-            LineGrid = lineGrid;
-            MinWidth = minWidth;
-            MinHeight = minHeight;
-            EndPointX = endPointX;
-            EndPointY = endPointY;
-            BoxCount = boxCount;
-            FigureType = figureType;
-        }
+        public ArtistModel() { }
         public ArtistModel(ArtistModel artists)
         {
             Width = artists.Width;
@@ -42,4 +40,143 @@
         }
         #endregion
     }
+
+    #region DDD Value
+    public abstract class ValueObject
+    {
+        protected static bool EqualOperator(ValueObject left, ValueObject right)
+        {
+            if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+            {
+                return false;
+            }
+            return ReferenceEquals(left, right) || left.Equals(right);
+        }
+
+        protected static bool NotEqualOperator(ValueObject left, ValueObject right)
+        {
+            return !(EqualOperator(left, right));
+        }
+
+        protected abstract IEnumerable<object> GetEqualityComponents();
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            var other = (ValueObject)obj;
+
+            return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+        }
+
+        public override int GetHashCode()
+        {
+            return GetEqualityComponents()
+                .Select(x => x != null ? x.GetHashCode() : 0)
+                .Aggregate((x, y) => x ^ y);
+        }
+        public static bool operator ==(ValueObject one, ValueObject two)
+        {
+            return EqualOperator(one, two);
+        }
+
+        public static bool operator !=(ValueObject one, ValueObject two)
+        {
+            return NotEqualOperator(one, two);
+        }
+    }
+
+    public class Width : ValueObject
+    {
+        private int _minValue = 0;
+        private int _maxValue = 2000;
+        private int _value;
+        private bool _exceptionSwitch = false;
+
+        public Width() => _value = 0;
+
+        public Width(int value)
+        {
+            ModifyValue(value);
+        }
+        public Width(int value, int minValue, int maxValue)
+        {
+            SetMinValue(minValue);
+            SetMaxValue(maxValue);
+            ModifyValue(value);
+        }
+
+        public void  ModifyValue(int value)
+        {
+            //if(value == null) throw new ArgumentNullException(nameof(value));
+
+            if (value < _minValue)
+            {
+                _value = _minValue;
+                if(_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+                return;
+            }
+
+            if (value > _maxValue)
+            {
+                _value = _maxValue;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+                return;
+            }
+
+            _value = value;
+        }
+        public void SetMinValue(int value)
+        {
+            if(value > _maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
+            
+            if (_value < value)
+            {
+                _value = value;
+                _minValue = value;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 작습니다. 임의로 Value값을 조정합니다.");
+                return;
+            }
+            _minValue = value;
+        }
+        public void SetMaxValue(int value)
+        {
+            if (value < _minValue) throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다.");
+
+            if (_value > value)
+            {
+                _value = value;
+                _maxValue = value;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 큽니다. 임의로 Value값을 조정합니다.");
+                return;
+            }
+            _maxValue = value;
+        }
+        public void SetMinMaxValue(int minValue, int maxValue)
+        {
+            _minValue = minValue;
+            _maxValue = maxValue;
+        }
+        public int GetValue()
+        {
+            return _value;
+        }
+
+        public void SetException(bool eSwitch)
+        {
+            _exceptionSwitch = eSwitch;
+        }
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return _value;
+        }
+    }
+    #endregion
 }
