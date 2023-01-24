@@ -7,6 +7,23 @@ namespace ArtistHelper.test.Model
 {
     public class ArtistModel_Test
     {
+        #region Artist Test
+        [Fact(DisplayName = "ArtistModel Test")]
+        public void ArtistModelTest()
+        {
+            // Arange
+
+            // Act
+            var artist = new ArtistModel()
+            {
+                Width = new Width(10, 0, 1000)
+            };
+
+            // Assert
+            artist.Width.GetValue().Should().Be(10);
+        }
+        #endregion
+
         #region DDD Width Value Test
         [Fact(DisplayName = "DDD Value - Artist.Width Test")]
         public void DDDTest_Width_Test()
