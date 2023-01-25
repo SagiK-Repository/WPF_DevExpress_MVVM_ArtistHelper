@@ -16,11 +16,13 @@ namespace ArtistHelper.test.Model
             // Act
             var artist = new ArtistModel()
             {
-                Width = new Width(10, 0, 1000)
+                Width = new Width(10, 0, 1000),
+                Height = new Height(100, 0, 1000)
             };
 
             // Assert
             artist.Width.GetValue().Should().Be(10);
+            artist.Height.GetValue().Should().Be(100);
         }
         #endregion
 
@@ -126,6 +128,113 @@ namespace ArtistHelper.test.Model
             width6.GetValue().Should().Be(100);
             width7.GetValue().Should().Be(2000);
             width8.GetValue().Should().Be(0);
+            exception7.Should().Be("입력 값이 2000보다 큽니다.");
+            exception8.Should().Be("입력 값이 0보다 작습니다.");
+        }
+        #endregion
+
+        #region DDD Height Value Test
+        [Fact(DisplayName = "DDD Value - Artist.Height Test")]
+        public void DDDTest_Height_Test()
+        {
+            // Arange
+
+            // Act
+            var height = new Height(0);
+            var height2 = new Height(0, 0, 100);
+            var height3 = new Height(50);
+            height3.ModifyValue(100);
+            var height4 = new Height(-100, -200, 0);
+
+            // Assert
+            height.GetValue().Should().Be(0);
+            height2.GetValue().Should().Be(0);
+            height3.GetValue().Should().Be(100);
+            height4.GetValue().Should().Be(-100);
+        }
+        
+        [Fact(DisplayName = "DDD Value - Artist.Height MinMax Test")]
+        public void DDDTest_Height_MinMax_Test()
+        {
+            // Arange
+
+            // Act
+            var minHeight1 = new Height(-10);
+            var minHeight2 = new Height(-10, 0, 100);
+            var maxHeight1 = new Height(4000);
+            var maxHeight2 = new Height(4000, 0, 100);
+            var height1 = new Height(50, 30, 100);
+            var height2 = new Height(50, 30, 100);
+            height1.ModifyValue(25);
+            height2.ModifyValue(150);
+
+            // Assert
+            minHeight1.GetValue().Should().Be(0);
+            minHeight2.GetValue().Should().Be(0);
+            maxHeight1.GetValue().Should().Be(2000);
+            maxHeight2.GetValue().Should().Be(100);
+            height1.GetValue().Should().Be(30);
+            height2.GetValue().Should().Be(100);
+        }
+        
+        [Fact(DisplayName = "DDD Value - Artist.Height After MinMax Test")]
+        public void DDDTest_Height_After_MinMax_Test()
+        {
+            // Arange
+            var height1 = new Height(100);
+            var height2 = new Height(100);
+            var height3 = new Height(100);
+            var height4 = new Height(100);
+            var height5 = new Height(100);
+            var height6 = new Height(100);
+            var height7 = new Height(100);
+            var height8 = new Height(100);
+            string exception7 = "";
+            string exception8 = "";
+
+            // Act
+            height1.SetMinValue(150);
+            height2.SetMaxValue(50);
+            height3.SetMinMaxValue(50, 150);
+            height3.ModifyValue(25);
+            height4.SetMinMaxValue(50, 150);
+            height4.ModifyValue(175);
+            try
+            {
+                height5.SetMinValue(5000);
+            }catch(Exception e) 
+            {
+                exception7 = e.Message;
+            }
+            try
+            {
+                height6.SetMaxValue(-100);
+            }catch(Exception e)
+            {
+                exception8 = e.Message;
+            }
+            try
+            {
+                height7.SetMinValue(5000);
+            }
+            catch (Exception) { }
+            height7.ModifyValue(4500);
+            try
+            {
+                height8.SetMaxValue(-100);
+            }
+            catch (Exception) { }
+            height8.ModifyValue(-50);
+
+            // Assert
+            height1.GetValue().Should().Be(150);
+            height2.GetValue().Should().Be(50);
+            height3.GetValue().Should().Be(50);
+            height4.GetValue().Should().Be(150);
+            height5.GetValue().Should().Be(100);
+            height6.GetValue().Should().Be(100);
+            height7.GetValue().Should().Be(2000);
+            height8.GetValue().Should().Be(0);
             exception7.Should().Be("입력 값이 2000보다 큽니다.");
             exception8.Should().Be("입력 값이 0보다 작습니다.");
         }
