@@ -13,7 +13,7 @@ namespace ArtistHelper.Model
     {
         #region 프로퍼티
         public Width Width { get; set; } // 이미지 가로 사이즈
-        public int Height { get; set; } // 이미지 세로 사이즈
+        public Height Height { get; set; } // 이미지 세로 사이즈
         public int LineGrid { get; set; } // 선 굵기
         public int MinWidth { get; set; } // 사각형 최소 가로 길이
         public int MinHeight { get; set; } // 사각형 최소 세로 길이
@@ -177,6 +177,13 @@ namespace ArtistHelper.Model
         {
             yield return _value;
         }
+    }
+
+    public class Height : Width 
+    {
+        public Height() : base() { }
+        public Height(int value) : base(value) { }
+        public Height(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
     }
     #endregion
 }
