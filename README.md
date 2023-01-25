@@ -888,6 +888,21 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 <br>
 
 
+### ArtistModel DDD 형식 구현 확장
+
+- Width와 Height는 같은 속성을 갖고 있다. 다음과 같이 선언할 수 있다.
+  ```cs
+  public class Height : Width 
+  {
+      public Height() : base() { }
+      public Height(int value) : base(value) { }
+      public Height(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
+  }
+  ```
+- Test 시에도 Width와 Height가 문제없이 동작하는지 확인한다.
+
+<br>
+
 ### PanelModel.cs 개발
 
 <br>
