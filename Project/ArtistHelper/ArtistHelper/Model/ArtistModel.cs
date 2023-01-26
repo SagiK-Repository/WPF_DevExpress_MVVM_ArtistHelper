@@ -161,8 +161,8 @@ namespace ArtistHelper.Model
         }
         public void SetMinMaxValue(int minValue, int maxValue)
         {
-            _minValue = minValue;
-            _maxValue = maxValue;
+            SetMinValue(minValue);
+            SetMaxValue(maxValue);
         }
         public int GetValue()
         {
