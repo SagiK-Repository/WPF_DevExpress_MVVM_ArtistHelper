@@ -14,9 +14,9 @@ namespace ArtistHelper.Model
         #region 프로퍼티
         public Width Width { get; set; } // 이미지 가로 사이즈
         public Height Height { get; set; } // 이미지 세로 사이즈
-        public int LineGrid { get; set; } // 선 굵기
-        public int MinWidth { get; set; } // 사각형 최소 가로 길이
-        public int MinHeight { get; set; } // 사각형 최소 세로 길이
+        public Grid LineGrid { get; set; } // 선 굵기
+        public Width MinWidth { get; set; } // 사각형 최소 가로 길이
+        public Height MinHeight { get; set; } // 사각형 최소 세로 길이
         public int EndPointX { get; set; } // 종점 x
         public int EndPointY { get; set; } // 종점 y
         public int BoxCount { get; set; } // 사각형 개수
@@ -184,6 +184,13 @@ namespace ArtistHelper.Model
         public Height() : base() { }
         public Height(int value) : base(value) { }
         public Height(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
+    }
+
+    public class Grid : Width
+    {
+        public Grid() : this(0, 0, 50) { }
+        public Grid(int value) : base(value, 0, 50) { }
+        public Grid(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
     }
     #endregion
 }
