@@ -17,12 +17,18 @@ namespace ArtistHelper.test.Model
             var artist = new ArtistModel()
             {
                 Width = new Width(10, 0, 1000),
-                Height = new Height(100, 0, 1000)
+                Height = new Height(100, 0, 1000),
+                LineGrid = new Grid(10),
+                MinWidth = new Width(0, 0, 1000),
+                MinHeight = new Height(0, 0, 1000)
             };
 
             // Assert
             artist.Width.GetValue().Should().Be(10);
             artist.Height.GetValue().Should().Be(100);
+            artist.LineGrid.GetValue().Should().Be(10);
+            artist.MinWidth.GetValue().Should().Be(0);
+            artist.MinHeight.GetValue().Should().Be(0);
         }
         #endregion
 
