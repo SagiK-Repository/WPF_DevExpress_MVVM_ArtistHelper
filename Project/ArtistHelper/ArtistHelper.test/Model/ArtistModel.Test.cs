@@ -239,5 +239,115 @@ namespace ArtistHelper.test.Model
             exception8.Should().Be("입력 값이 0보다 작습니다.");
         }
         #endregion
+
+        #region DDD Grid Value Test
+        [Fact(DisplayName = "DDD Value - Artist.Grid Test")]
+        public void DDDTest_Grid_Test()
+        {
+            // Arange
+
+            // Act
+            var grid = new Grid(0);
+            var grid2 = new Grid(0, 0, 100);
+            var grid3 = new Grid(50);
+            var grid4 = new Grid(-100, -200, 0);
+            var grid5 = new Grid(0);
+            grid5.ModifyValue(100);
+
+            // Assert
+            grid.GetValue().Should().Be(0);
+            grid2.GetValue().Should().Be(0);
+            grid3.GetValue().Should().Be(50);
+            grid4.GetValue().Should().Be(-100);
+            grid5.GetValue().Should().Be(50);
+        }
+
+        [Fact(DisplayName = "DDD Value - Artist.Grid MinMax Test")]
+        public void DDDTest_Grid_MinMax_Test()
+        {
+            // Arange
+
+            // Act
+            var minGrid1 = new Grid(-10);
+            var minGrid2 = new Grid(-10, 0, 100);
+            var maxGrid1 = new Grid(4000);
+            var maxGrid2 = new Grid(4000, 0, 100);
+            var grid1 = new Grid(50, 30, 100);
+            var grid2 = new Grid(50, 30, 100);
+            grid1.ModifyValue(25);
+            grid2.ModifyValue(150);
+
+            // Assert
+            minGrid1.GetValue().Should().Be(0);
+            minGrid2.GetValue().Should().Be(0);
+            maxGrid1.GetValue().Should().Be(50);
+            maxGrid2.GetValue().Should().Be(100);
+            grid1.GetValue().Should().Be(30);
+            grid2.GetValue().Should().Be(100);
+        }
+
+        [Fact(DisplayName = "DDD Value - Artist.Grid After MinMax Test")]
+        public void DDDTest_Grid_After_MinMax_Test()
+        {
+            // Arange
+            var grid1 = new Grid(10);
+            var grid2 = new Grid(10);
+            var grid3 = new Grid(10);
+            var grid4 = new Grid(10);
+            var grid5 = new Grid(10);
+            var grid6 = new Grid(10);
+            var grid7 = new Grid(10);
+            var grid8 = new Grid(10);
+            string exception7 = "";
+            string exception8 = "";
+
+            // Act
+            grid1.SetMinValue(25);
+            grid2.SetMaxValue(5);
+            grid3.SetMinMaxValue(50, 150);
+            grid4.SetMinMaxValue(50, 150);
+            grid4.ModifyValue(175);
+            try
+            {
+                grid5.SetMinValue(5000);
+            }
+            catch (Exception e)
+            {
+                exception7 = e.Message;
+            }
+            try
+            {
+                grid6.SetMaxValue(-100);
+            }
+            catch (Exception e)
+            {
+                exception8 = e.Message;
+            }
+            try
+            {
+                grid7.SetMinValue(5000);
+            }
+            catch (Exception) { }
+            grid7.ModifyValue(4500);
+            try
+            {
+                grid8.SetMaxValue(-100);
+            }
+            catch (Exception) { }
+            grid8.ModifyValue(-50);
+
+            // Assert
+            grid1.GetValue().Should().Be(25);
+            grid2.GetValue().Should().Be(5);
+            grid3.GetValue().Should().Be(50);
+            grid4.GetValue().Should().Be(150);
+            grid5.GetValue().Should().Be(10);
+            grid6.GetValue().Should().Be(10);
+            grid7.GetValue().Should().Be(50);
+            grid8.GetValue().Should().Be(0);
+            exception7.Should().Be("입력 값이 50보다 큽니다.");
+            exception8.Should().Be("입력 값이 0보다 작습니다.");
+        }
+        #endregion
     }
 }
