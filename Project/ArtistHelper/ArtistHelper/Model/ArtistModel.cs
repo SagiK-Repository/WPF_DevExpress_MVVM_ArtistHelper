@@ -232,5 +232,5 @@ namespace ArtistHelper.Model
     #endregion
 
     // Point Test
-    // int 뿐만 아니라 float에도 동작하도록
+    // int 뿐만 아니라 float에도 동작하도록 : 제너릭 클래스 : https://developer-talk.tistory.com/206
 }
