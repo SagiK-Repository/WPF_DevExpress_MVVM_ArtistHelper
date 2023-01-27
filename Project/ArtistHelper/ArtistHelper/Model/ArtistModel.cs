@@ -17,8 +17,7 @@ namespace ArtistHelper.Model
         public Grid LineGrid { get; set; } // 선 굵기
         public Width MinWidth { get; set; } // 사각형 최소 가로 길이
         public Height MinHeight { get; set; } // 사각형 최소 세로 길이
-        public int EndPointX { get; set; } // 종점 x
-        public int EndPointY { get; set; } // 종점 y
+        public Point EndPoint { get; set; } // 종점
         public int BoxCount { get; set; } // 사각형 개수
         public int FigureType { get; set; } // 도형 종류
         public string Name { get; set; }
@@ -33,8 +32,7 @@ namespace ArtistHelper.Model
             LineGrid = artists.LineGrid;
             MinWidth = artists.MinWidth;
             MinHeight = artists.MinHeight;
-            EndPointX = artists.EndPointX;
-            EndPointY = artists.EndPointY;
+            EndPoint = artists.EndPoint;
             BoxCount = artists.BoxCount;
             FigureType = artists.FigureType;
         }
@@ -192,5 +190,47 @@ namespace ArtistHelper.Model
         public Grid(int value) : base(value, 0, 50) { }
         public Grid(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
     }
+
+    public class Position : Width
+    {
+        public Position() : base(0, -1000, 1000) { }
+        public Position(int value) : base(value, -1000, 1000) { }
+        public Position(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
+    }
+
+    public class Point
+    {
+        public int x
+        {
+            get
+            {
+                return X.GetValue();
+            }
+        }
+        public int y
+        {
+            get
+            {
+                return Y.GetValue();
+            }
+        }
+        public Position X { get; set; }
+        public Position Y { get; set; }
+
+        public Point()
+        {
+            X = new Position();
+            Y = new Position();
+        }
+
+        public Point(int x, int y) : this()
+        {
+            X.ModifyValue(x);
+            Y.ModifyValue(y);
+        }
+    }
     #endregion
+
+    // Point Test
+    // int 뿐만 아니라 float에도 동작하도록
 }
