@@ -20,7 +20,8 @@ namespace ArtistHelper.test.Model
                 Height = new Height(100, 0, 1000),
                 LineGrid = new Grid(10),
                 MinWidth = new Width(0, 0, 1000),
-                MinHeight = new Height(0, 0, 1000)
+                MinHeight = new Height(0, 0, 1000),
+                EndPoint = new Point(0, 0),
             };
 
             // Assert
@@ -29,6 +30,8 @@ namespace ArtistHelper.test.Model
             artist.LineGrid.GetValue().Should().Be(10);
             artist.MinWidth.GetValue().Should().Be(0);
             artist.MinHeight.GetValue().Should().Be(0);
+            artist.EndPoint.X.GetValue().Should().Be(0);
+            artist.EndPoint.Y.GetValue().Should().Be(0);
         }
         #endregion
 
@@ -353,6 +356,116 @@ namespace ArtistHelper.test.Model
             grid8.GetValue().Should().Be(0);
             exception7.Should().Be("입력 값이 50보다 큽니다.");
             exception8.Should().Be("입력 값이 0보다 작습니다.");
+        }
+        #endregion
+
+        #region DDD Position Value Test
+        [Fact(DisplayName = "DDD Value - Artist.Position Test")]
+        public void DDDTest_Position_Test()
+        {
+            // Arange
+
+            // Act
+            var position = new Position(0);
+            var position2 = new Position(0, 0, 100);
+            var position3 = new Position(-2000);
+            var position4 = new Position(-100, -200, 0);
+            var position5 = new Position(0);
+            position5.ModifyValue(2000);
+
+            // Assert
+            position.GetValue().Should().Be(0);
+            position2.GetValue().Should().Be(0);
+            position3.GetValue().Should().Be(-1000);
+            position4.GetValue().Should().Be(-100);
+            position5.GetValue().Should().Be(1000);
+        }
+
+        [Fact(DisplayName = "DDD Value - Artist.Position MinMax Test")]
+        public void DDDTest_Position_MinMax_Test()
+        {
+            // Arange
+
+            // Act
+            var minPosition1 = new Position(-2000);
+            var minPosition2 = new Position(-10, 0, 100);
+            var maxPosition1 = new Position(4000);
+            var maxPosition2 = new Position(4000, 0, 100);
+            var position1 = new Position(50, 30, 100);
+            var position2 = new Position(50, 30, 100);
+            position1.ModifyValue(25);
+            position2.ModifyValue(150);
+
+            // Assert
+            minPosition1.GetValue().Should().Be(-1000);
+            minPosition2.GetValue().Should().Be(0);
+            maxPosition1.GetValue().Should().Be(1000);
+            maxPosition2.GetValue().Should().Be(100);
+            position1.GetValue().Should().Be(30);
+            position2.GetValue().Should().Be(100);
+        }
+
+        [Fact(DisplayName = "DDD Value - Artist.Position After MinMax Test")]
+        public void DDDTest_Position_After_MinMax_Test()
+        {
+            // Arange
+            var position1 = new Position(10);
+            var position2 = new Position(10);
+            var position3 = new Position(10);
+            var position4 = new Position(10);
+            var position5 = new Position(10);
+            var position6 = new Position(10);
+            var position7 = new Position(10);
+            var position8 = new Position(10);
+            string exception7 = "";
+            string exception8 = "";
+
+            // Act
+            position1.SetMinValue(25);
+            position2.SetMaxValue(-10);
+            position3.SetMinMaxValue(50, 150);
+            position4.SetMinMaxValue(50, 150);
+            position4.ModifyValue(175);
+            try
+            {
+                position5.SetMinValue(5000);
+            }
+            catch (Exception e)
+            {
+                exception7 = e.Message;
+            }
+            try
+            {
+                position6.SetMaxValue(-5000);
+            }
+            catch (Exception e)
+            {
+                exception8 = e.Message;
+            }
+            try
+            {
+                position7.SetMinValue(5000);
+            }
+            catch (Exception) { }
+            position7.ModifyValue(4500);
+            try
+            {
+                position8.SetMaxValue(-2000);
+            }
+            catch (Exception) { }
+            position8.ModifyValue(-1500);
+
+            // Assert
+            position1.GetValue().Should().Be(25);
+            position2.GetValue().Should().Be(-10);
+            position3.GetValue().Should().Be(50);
+            position4.GetValue().Should().Be(150);
+            position5.GetValue().Should().Be(10);
+            position6.GetValue().Should().Be(10);
+            position7.GetValue().Should().Be(1000);
+            position8.GetValue().Should().Be(-1000);
+            exception7.Should().Be("입력 값이 1000보다 큽니다.");
+            exception8.Should().Be("입력 값이 -1000보다 작습니다.");
         }
         #endregion
     }
