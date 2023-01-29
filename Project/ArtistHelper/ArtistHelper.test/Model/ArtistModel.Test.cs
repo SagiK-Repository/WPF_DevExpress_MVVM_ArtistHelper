@@ -468,5 +468,120 @@ namespace ArtistHelper.test.Model
             exception8.Should().Be("입력 값이 -1000보다 작습니다.");
         }
         #endregion
+
+        #region DDD Point Value Test
+        [Fact(DisplayName = "DDD Value - Artist.Point Test")]
+        public void DDDTest_Point_Test()
+        {
+            // Arange
+
+            // Act
+            var point = new Point();
+            var point2 = new Point(0, 0);
+            var point3 = new Point(-2000, 2000);
+            var point4 = new Point(0, 0);
+            point4.X.ModifyValue(2000);
+            point4.Y.ModifyValue(-2000);
+
+            // Assert
+            point.X.GetValue().Should().Be(0);
+            point.Y.GetValue().Should().Be(0);
+            point2.X.GetValue().Should().Be(0);
+            point2.Y.GetValue().Should().Be(0);
+            point3.X.GetValue().Should().Be(-1000);
+            point3.Y.GetValue().Should().Be(1000);
+            point4.X.GetValue().Should().Be(1000);
+            point4.Y.GetValue().Should().Be(-1000);
+        }
+
+        [Fact(DisplayName = "DDD Value - Artist.Point MinMax Test")]
+        public void DDDTest_Point_MinMax_Test()
+        {
+            // Arange
+
+            // Act
+            var minMaxPoint = new Point()
+            {
+                X = new Position(-10, 0, 100),
+                Y = new Position(110, 0, 100)
+            };
+            var point = new Point() 
+            {
+                X = new Position(50, 30, 100),
+                Y = new Position(50, 30, 100)
+            };
+            point.X.ModifyValue(25);
+            point.Y.ModifyValue(150);
+
+            // Assert
+            minMaxPoint.X.GetValue().Should().Be(0);
+            minMaxPoint.Y.GetValue().Should().Be(100);
+            point.X.GetValue().Should().Be(30);
+            point.Y.GetValue().Should().Be(100);
+        }
+
+        [Fact(DisplayName = "DDD Value - Artist.Point After MinMax Test")]
+        public void DDDTest_Point_After_MinMax_Test()
+        {
+            // Arange
+            var point1 = new Point(10, 10);
+            var point2 = new Point(10, 10);
+            var point3 = new Point(10, 10);
+            var point4 = new Point(10, 10);
+            var point5 = new Point(10, 10);
+            string exception7 = "";
+            string exception8 = "";
+
+            // Act
+            point1.X.SetMinValue(25);
+            point1.Y.SetMinValue(75);
+            point2.X.SetMaxValue(-10);
+            point2.Y.SetMinMaxValue(50, 150);
+            point3.X.SetMinMaxValue(50, 150);
+            point3.X.ModifyValue(175);
+            try
+            {
+                point3.Y.SetMinValue(5000);
+            }
+            catch (Exception e)
+            {
+                exception7 = e.Message;
+            }
+            try
+            {
+                point4.X.SetMaxValue(-5000);
+            }
+            catch (Exception e)
+            {
+                exception8 = e.Message;
+            }
+            try
+            {
+                point4.Y.SetMinValue(5000);
+            }
+            catch (Exception) { }
+            point4.Y.ModifyValue(4500);
+            try
+            {
+                point5.X.SetMaxValue(-2000);
+            }
+            catch (Exception) { }
+            point5.X.ModifyValue(-1500);
+
+            // Assert
+            point1.X.GetValue().Should().Be(25);
+            point1.Y.GetValue().Should().Be(75);
+            point2.X.GetValue().Should().Be(-10);
+            point2.Y.GetValue().Should().Be(50);
+            point3.X.GetValue().Should().Be(150);
+            point3.Y.GetValue().Should().Be(10);
+            point4.X.GetValue().Should().Be(10);
+            point4.Y.GetValue().Should().Be(1000);
+            point5.X.GetValue().Should().Be(-1000);
+            point5.Y.GetValue().Should().Be(10);
+            exception7.Should().Be("입력 값이 1000보다 큽니다.");
+            exception8.Should().Be("입력 값이 -1000보다 작습니다.");
+        }
+        #endregion
     }
 }
