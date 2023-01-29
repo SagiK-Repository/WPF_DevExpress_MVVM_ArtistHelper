@@ -39,7 +39,7 @@ namespace ArtistHelper.Model
         #endregion
     }
 
-    #region DDD Value
+    #region DDD int Value
     public abstract class ValueObject
     {
         protected static bool EqualOperator(ValueObject left, ValueObject right)
