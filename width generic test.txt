@@ -1,0 +1,152 @@
+namespace CSharpTest001
+{
+    public class Program
+    {
+        public abstract class ValueObject
+        {
+            protected static bool EqualOperator(ValueObject left, ValueObject right)
+            {
+                if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+                {
+                    return false;
+                }
+                return ReferenceEquals(left, right) || left.Equals(right);
+            }
+
+            protected static bool NotEqualOperator(ValueObject left, ValueObject right)
+            {
+                return !(EqualOperator(left, right));
+            }
+
+            protected abstract IEnumerable<object> GetEqualityComponents();
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null || obj.GetType() != GetType())
+                {
+                    return false;
+                }
+
+                var other = (ValueObject)obj;
+
+                return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+            }
+
+            public override int GetHashCode()
+            {
+                return GetEqualityComponents()
+                    .Select(x => x != null ? x.GetHashCode() : 0)
+                    .Aggregate((x, y) => x ^ y);
+            }
+            public static bool operator ==(ValueObject one, ValueObject two)
+            {
+                return EqualOperator(one, two);
+            }
+
+            public static bool operator !=(ValueObject one, ValueObject two)
+            {
+                return NotEqualOperator(one, two);
+            }
+        }
+
+        public class Width : ValueObject
+        {
+            private double _minValue = 0.0;
+            private double _maxValue = 2000.0;
+            private double _value;
+            private bool _exceptionSwitch = false;
+
+            public Width() => _value = 0.0;
+
+            public Width(double value)
+            {
+
+                ModifyValue(value);
+            }
+            public Width(double value, double minValue, double maxValue)
+            {
+                SetMinValue(minValue);
+                SetMaxValue(maxValue);
+                ModifyValue(value);
+            }
+
+            public void ModifyValue(double value)
+            {
+                if ((double)(object)value < (double)(object)_minValue)
+                {
+                    _value = _minValue;
+                    if (_exceptionSwitch)
+                        throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+                    return;
+                }
+
+                if ((double)(object)value > (double)(object)_maxValue)
+                {
+                    _value = _maxValue;
+                    if (_exceptionSwitch)
+                        throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+                    return;
+                }
+
+                _value = value;
+            }
+            public void SetMinValue(double value)
+            {
+                if ((double)(object)value > (double)(object)_maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
+
+                if ((double)(object)_value < (double)(object)value)
+                {
+                    _value = value;
+                    _minValue = value;
+                    if (_exceptionSwitch)
+                        throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 작습니다. 임의로 Value값을 조정합니다.");
+                    return;
+                }
+                _minValue = value;
+            }
+            public void SetMaxValue(double value)
+            {
+                if ((double)(object)value < (double)(object)_minValue) throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다.");
+
+                if ((double)(object)_value > (double)(object)value)
+                {
+                    _value = value;
+                    _maxValue = value;
+                    if (_exceptionSwitch)
+                        throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 큽니다. 임의로 Value값을 조정합니다.");
+                    return;
+                }
+                _maxValue = value;
+            }
+            public void SetMinMaxValue(double minValue, double maxValue)
+            {
+                SetMinValue(minValue);
+                SetMaxValue(maxValue);
+            }
+            public double GetValue()
+            {
+                return _value;
+            }
+
+            public void SetException(bool eSwitch)
+            {
+                _exceptionSwitch = eSwitch;
+            }
+            protected override IEnumerable<object> GetEqualityComponents()
+            {
+                yield return _value;
+            }
+        }
+
+        public static void Main(string[] args)
+        {
+            var witdh1 = new Width(10.0);
+
+            Console.WriteLine(witdh1.GetValue());
+            witdh1.ModifyValue(10000);
+            Console.WriteLine(witdh1.GetValue());
+            ;
+
+        }
+    }
+}
