@@ -14,14 +14,14 @@ namespace ArtistHelper.test.Model
             // Arange
 
             // Act
-            var artist = new ArtistModel()
+            var artist = new ArtistModel<int>()
             {
-                Width = new Width(10, 0, 1000),
-                Height = new Height(100, 0, 1000),
-                LineGrid = new Grid(10),
-                MinWidth = new Width(0, 0, 1000),
-                MinHeight = new Height(0, 0, 1000),
-                EndPoint = new Point(0, 0),
+                Width = new Width<int>(10, 0, 1000),
+                Height = new Height<int>(100, 0, 1000),
+                LineGrid = new Grid<int>(10),
+                MinWidth = new Width<int>(0, 0, 1000),
+                MinHeight = new Height<int>(0, 0, 1000),
+                EndPoint = new Point<int>(0, 0),
             };
 
             // Assert
