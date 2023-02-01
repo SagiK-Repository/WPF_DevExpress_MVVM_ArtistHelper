@@ -903,6 +903,182 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 <br>
 
+### ArtistModel DDD 형식 구현 확장 : Generic
+
+- int, double 형식등을 고려하여 다음과 같이 재구성하였다.
+  ```cs
+  public class ArtistModel<T> where T : struct
+  {
+      #region 프로퍼티
+        public Width<T> Width { get; set; } // 이미지 가로 사이즈
+        public Height<T> Height { get; set; } // 이미지 세로 사이즈
+        public Grid<T> LineGrid { get; set; } // 선 굵기
+        public Width<T> MinWidth { get; set; } // 사각형 최소 가로 길이
+        public Height<T> MinHeight { get; set; } // 사각형 최소 세로 길이
+        public Point<T> EndPoint { get; set; } // 종점
+        public int BoxCount { get; set; } // 사각형 개수
+        public int FigureType { get; set; } // 도형 종류
+        public string Name { get; set; }
+        #endregion
+
+      #region 생성자
+        public ArtistModel() { }
+        public ArtistModel(ArtistModel<T> artists)
+        {
+            Width = artists.Width;
+            Height = artists.Height;
+            LineGrid = artists.LineGrid;
+            MinWidth = artists.MinWidth;
+            MinHeight = artists.MinHeight;
+            EndPoint = artists.EndPoint;
+            BoxCount = artists.BoxCount;
+            FigureType = artists.FigureType;
+        }
+        #endregion
+  }
+
+  public class Width<T> : ValueObject where T : struct
+    {
+        private double _minValue = 0;
+        private double _maxValue = 2000;
+        private double _value;
+        private bool _exceptionSwitch = false;
+
+        public Width() => _value = 0.0;
+
+        public Width(T value)
+        {
+            ModifyValue(Convert.ToDouble(value));
+        }
+        public Width(double value)
+        {
+            ModifyValue(value);
+        }
+        public Width(T value, T minValue, T maxValue)
+        {
+            SetMinValue(Convert.ToDouble(minValue));
+            SetMaxValue(Convert.ToDouble(maxValue));
+            ModifyValue(Convert.ToDouble(value));
+        }
+        public Width(T value, double minValue, double maxValue)
+        {
+            SetMinValue(minValue);
+            SetMaxValue(maxValue);
+            ModifyValue(Convert.ToDouble(value));
+        }
+        public Width(double value, double minValue, double maxValue)
+        {
+            SetMinValue(minValue);
+            SetMaxValue(maxValue);
+            ModifyValue(value);
+        }
+
+        public void ModifyValue(double value)
+        {
+            //if(value == null) throw new ArgumentNullException(nameof(value));
+
+            if (value < _minValue)
+            {
+                _value = _minValue;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+                return;
+            }
+
+            if ( value > _maxValue)
+            {
+                _value = _maxValue;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+                return;
+            }
+
+            _value = value;
+        }
+        public void SetMinValue(double value)
+        {
+            if (value > _maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
+
+            if (_value < value)
+            {
+                _value = value;
+                _minValue = value;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 작습니다. 임의로 Value값을 조정합니다.");
+                return;
+            }
+            _minValue = value;
+        }
+        public void SetMaxValue(double value)
+        {
+            if (value < _minValue) throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다.");
+
+            if (_value > value)
+            {
+                _value = value;
+                _maxValue = value;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 큽니다. 임의로 Value값을 조정합니다.");
+                return;
+            }
+            _maxValue = value;
+        }
+        public void SetMinMaxValue(T minValue, T maxValue)
+        {
+            SetMinValue(Convert.ToDouble(minValue));
+            SetMaxValue(Convert.ToDouble(maxValue));
+        }
+        public void SetMinMaxValue(double minValue, double maxValue)
+        {
+            SetMinValue(minValue);
+            SetMaxValue(maxValue);
+        }
+        public double GetValue()
+        {
+            return _value;
+        }
+
+        public void SetException(bool eSwitch)
+        {
+            _exceptionSwitch = eSwitch;
+        }
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return _value;
+        }
+    }
+  ```
+
+<br>
+
+### ArtistModel DDD 형식 Test
+
+- Test의 품질을 보다 향상시키기 위해, 다음 4가지를 고려하여 Test를 작성하였다.
+  - Test는 기능별로 따로 구분해야 한다. (value Test, MinMax Test, Exception Test등)
+  - Test의 함수는 간단해야 한다. (Arange, Act, Assert 각각 한 줄)
+  - 빠르고 직관적인 Test (Fact만 사용하는 것이 아닌, Theory를 활용한다)
+  - 최대한 많이, 시간이 오래걸리더라도 정성들여 작성한다.
+- 다음과 같이 Test 코드를 재구성하였다.
+  ```cs
+  [InlineData(1, 1.0)]
+  [InlineData(1000, 1000.0)]
+  [InlineData(4000, 2000.0)]
+  [InlineData(-2000, 0.0)]
+  [Theory(DisplayName = "DDD Value : Artist.Width<int> Value Test")]
+  public void DDDTest_Width_int_Test(object value, double outValue)
+  {
+      // Arange
+
+      // Act
+      var width = new Width<int>(Convert.ToInt32(value));
+
+      // Assert
+      width.GetValue().Should().Be(outValue);
+  }
+  ```
+
+<br>
+
 ### PanelModel.cs 개발
 
 <br>
