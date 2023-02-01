@@ -1,23 +1,24 @@
 ﻿using DevExpress.Mvvm.Native;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Windows;
 
 namespace ArtistHelper.Model
 {
-    public class ArtistModel
+    // Generic 타입으로 교체하면서
+    // 테스트의 수준도 한차원 높인다.
+    // 테스트는 무조건 입력이 쉽고, 출력이 간단하도록 구성한다.
+    // 일반 value Test, MinMax Test, Exception Test등 기능별로 구성한다.
+
+    public class ArtistModel<T> where T : struct
     {
         #region 프로퍼티
-        public Width Width { get; set; } // 이미지 가로 사이즈
-        public Height Height { get; set; } // 이미지 세로 사이즈
-        public Grid LineGrid { get; set; } // 선 굵기
-        public Width MinWidth { get; set; } // 사각형 최소 가로 길이
-        public Height MinHeight { get; set; } // 사각형 최소 세로 길이
-        public Point EndPoint { get; set; } // 종점
+        public Width<T> Width { get; set; } // 이미지 가로 사이즈
+        public Height<T> Height { get; set; } // 이미지 세로 사이즈
+        public Grid<T> LineGrid { get; set; } // 선 굵기
+        public Width<T> MinWidth { get; set; } // 사각형 최소 가로 길이
+        public Height<T> MinHeight { get; set; } // 사각형 최소 세로 길이
+        public Point<T> EndPoint { get; set; } // 종점
         public int BoxCount { get; set; } // 사각형 개수
         public int FigureType { get; set; } // 도형 종류
         public string Name { get; set; }
@@ -25,7 +26,7 @@ namespace ArtistHelper.Model
 
         #region 생성자
         public ArtistModel() { }
-        public ArtistModel(ArtistModel artists)
+        public ArtistModel(ArtistModel<T> artists)
         {
             Width = artists.Width;
             Height = artists.Height;
@@ -39,7 +40,7 @@ namespace ArtistHelper.Model
         #endregion
     }
 
-    #region DDD int Value
+    #region DDD Double Value
     public abstract class ValueObject
     {
         protected static bool EqualOperator(ValueObject left, ValueObject right)
@@ -87,39 +88,55 @@ namespace ArtistHelper.Model
         }
     }
 
-    public class Width : ValueObject
+    public class Width<T> : ValueObject where T : struct
     {
-        private int _minValue = 0;
-        private int _maxValue = 2000;
-        private int _value;
+        private double _minValue = 0;
+        private double _maxValue = 2000;
+        private double _value;
         private bool _exceptionSwitch = false;
 
-        public Width() => _value = 0;
+        public Width() => _value = 0.0;
 
-        public Width(int value)
+        public Width(T value)
+        {
+            ModifyValue(Convert.ToDouble(value));
+        }
+        public Width(double value)
         {
             ModifyValue(value);
         }
-        public Width(int value, int minValue, int maxValue)
+        public Width(T value, T minValue, T maxValue)
+        {
+            SetMinValue(Convert.ToDouble(minValue));
+            SetMaxValue(Convert.ToDouble(maxValue));
+            ModifyValue(Convert.ToDouble(value));
+        }
+        public Width(T value, double minValue, double maxValue)
+        {
+            SetMinValue(minValue);
+            SetMaxValue(maxValue);
+            ModifyValue(Convert.ToDouble(value));
+        }
+        public Width(double value, double minValue, double maxValue)
         {
             SetMinValue(minValue);
             SetMaxValue(maxValue);
             ModifyValue(value);
         }
 
-        public void  ModifyValue(int value)
+        public void ModifyValue(double value)
         {
             //if(value == null) throw new ArgumentNullException(nameof(value));
 
             if (value < _minValue)
             {
                 _value = _minValue;
-                if(_exceptionSwitch)
+                if (_exceptionSwitch)
                     throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
                 return;
             }
 
-            if (value > _maxValue)
+            if ( value > _maxValue)
             {
                 _value = _maxValue;
                 if (_exceptionSwitch)
@@ -129,10 +146,10 @@ namespace ArtistHelper.Model
 
             _value = value;
         }
-        public void SetMinValue(int value)
+        public void SetMinValue(double value)
         {
-            if(value > _maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
-            
+            if (value > _maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
+
             if (_value < value)
             {
                 _value = value;
@@ -143,7 +160,7 @@ namespace ArtistHelper.Model
             }
             _minValue = value;
         }
-        public void SetMaxValue(int value)
+        public void SetMaxValue(double value)
         {
             if (value < _minValue) throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다.");
 
@@ -157,12 +174,17 @@ namespace ArtistHelper.Model
             }
             _maxValue = value;
         }
-        public void SetMinMaxValue(int minValue, int maxValue)
+        public void SetMinMaxValue(T minValue, T maxValue)
+        {
+            SetMinValue(Convert.ToDouble(minValue));
+            SetMaxValue(Convert.ToDouble(maxValue));
+        }
+        public void SetMinMaxValue(double minValue, double maxValue)
         {
             SetMinValue(minValue);
             SetMaxValue(maxValue);
         }
-        public int GetValue()
+        public double GetValue()
         {
             return _value;
         }
@@ -177,60 +199,62 @@ namespace ArtistHelper.Model
         }
     }
 
-    public class Height : Width 
+    public class Height<T> : Width<T> where T : struct
     {
         public Height() : base() { }
-        public Height(int value) : base(value) { }
-        public Height(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
+        public Height(T value) : base(value) { }
+        public Height(T value, T minValue, T maxValue) : base(value, minValue, maxValue) { }
     }
 
-    public class Grid : Width
+    public class Grid<T> : Width<T> where T : struct
     {
-        public Grid() : this(0, 0, 50) { }
-        public Grid(int value) : base(value, 0, 50) { }
-        public Grid(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
+        public Grid() : base(0.0, 0.0, 50.0) { }
+        public Grid(T value) : base(value, 0, 50) { }
+        public Grid(T value, T minValue, T maxValue) : base(value, minValue, maxValue) { }
     }
 
-    public class Position : Width
+    public class Position<T> : Width<T> where T : struct
     {
         public Position() : base(0, -1000, 1000) { }
-        public Position(int value) : base(value, -1000, 1000) { }
-        public Position(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
+        public Position(T value) : base(value, -1000, 1000) { }
+        public Position(T value, T minValue, T maxValue) : base(value, minValue, maxValue) { }
     }
 
-    public class Point
+    public class Point<T> where T : struct
     {
-        public int x
+        public double x
         {
             get
             {
                 return X.GetValue();
             }
         }
-        public int y
+        public double y
         {
             get
             {
                 return Y.GetValue();
             }
         }
-        public Position X { get; set; }
-        public Position Y { get; set; }
+        public Position<T> X { get; set; }
+        public Position<T> Y { get; set; }
 
         public Point()
         {
-            X = new Position();
-            Y = new Position();
+            X = new Position<T>();
+            Y = new Position<T>();
         }
 
-        public Point(int x, int y) : this()
+        public Point(T x, T y) : this()
+        {
+            X.ModifyValue(Convert.ToDouble(x));
+            Y.ModifyValue(Convert.ToDouble(y));
+        }
+        public Point(double x, double y) : this()
         {
             X.ModifyValue(x);
             Y.ModifyValue(y);
         }
     }
     #endregion
-
-    // Point Test
-    // int 뿐만 아니라 float에도 동작하도록 : 제너릭 클래스 : https://developer-talk.tistory.com/206
 }
