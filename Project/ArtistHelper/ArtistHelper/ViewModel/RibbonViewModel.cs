@@ -1,4 +1,5 @@
 ﻿using DevExpress.Mvvm;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ArtistHelper.ViewModel
@@ -21,12 +22,12 @@ namespace ArtistHelper.ViewModel
         #region 메소드
         private void _saveCommandAction()
         {
-            Messenger.Default.Send("SavePanel");
+            MessageBox.Show("SavePanel");
         }
 
         private void _newCommandAction()
         {
-            Messenger.Default.Send("NewPanel");
+            MessageBox.Show("NewPanel");
         }
         #endregion
     }
