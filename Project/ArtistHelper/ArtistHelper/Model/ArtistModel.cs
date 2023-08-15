@@ -256,5 +256,13 @@ namespace ArtistHelper.Model
             Y.ModifyValue(y);
         }
     }
+
+    public class Count<T> : Width<T> where T : struct
+    {
+        public Count() : base(0, 0, 100) { }
+        public Count(T value) : base(value, 0 ,100) { }
+        public Count(T value, T minValue, T maxValue) : base(value, minValue, maxValue) { }
+    }
+
     #endregion
 }
