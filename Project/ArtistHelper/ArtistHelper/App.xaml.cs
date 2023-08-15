@@ -1,6 +1,9 @@
-﻿using ArtistHelper.View;
+﻿using ArtistHelper.Common;
+using ArtistHelper.Model;
+using ArtistHelper.View;
 using ArtistHelper.ViewModel;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using Utility.LogService;
 
@@ -13,6 +16,8 @@ namespace ArtistHelper
         public App()
         {
             _logger = new Logger(NLog.LogManager.GetCurrentClassLogger());
+
+            _logger.LogSecond("Initiallize", () => Initiallize());
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -34,6 +39,12 @@ namespace ArtistHelper
             {
                 Environment.Exit(0);
             });
+        }
+        private void Initiallize()
+        {
+            ArtistHelperDataBase.ViewPanelName = "NewDraw";
+            ArtistHelperDataBase.PanelModels = new ObservableCollection<PanelModel>();
+            ArtistHelperDataBase.PanelModels.Add(new PanelModel() { Caption = "NewDraw" });
         }
     }
 }

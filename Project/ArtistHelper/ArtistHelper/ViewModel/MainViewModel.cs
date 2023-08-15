@@ -1,5 +1,8 @@
-﻿using ArtistHelper.View;
+﻿using ArtistHelper.Common;
+using ArtistHelper.Model;
+using ArtistHelper.View;
 using DevExpress.Mvvm;
+using System.Collections.ObjectModel;
 
 namespace ArtistHelper.ViewModel
 {
@@ -17,6 +20,10 @@ namespace ArtistHelper.ViewModel
         #endregion
 
         #region 프로퍼티
+        public ObservableCollection<PanelModel> PanelModels
+        {
+            get { return ArtistHelperDataBase.PanelModels; }
+        }
         public RibbonView RibbonViews
         {
             get { return GetProperty(() => RibbonViews); }
