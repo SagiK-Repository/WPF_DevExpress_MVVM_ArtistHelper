@@ -1,7 +1,5 @@
 ﻿using ArtistHelper.View;
 using DevExpress.Mvvm;
-using System;
-using System.Windows;
 
 namespace ArtistHelper.ViewModel
 {
