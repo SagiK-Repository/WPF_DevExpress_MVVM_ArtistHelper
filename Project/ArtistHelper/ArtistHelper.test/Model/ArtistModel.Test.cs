@@ -22,6 +22,7 @@ namespace ArtistHelper.test.Model
                 MinWidth = new Width<int>(0, 0, 1000),
                 MinHeight = new Height<int>(0, 0, 1000),
                 EndPoint = new Point<int>(0, 0),
+                BoxCount = new Count<int>(1, 0, 10)
             };
 
             // Assert
@@ -32,6 +33,7 @@ namespace ArtistHelper.test.Model
             artist.MinHeight.GetValue().Should().Be(0);
             artist.EndPoint.X.GetValue().Should().Be(0);
             artist.EndPoint.Y.GetValue().Should().Be(0);
+            artist.BoxCount.GetValue().Should().Be(1);
         }
         #endregion
 

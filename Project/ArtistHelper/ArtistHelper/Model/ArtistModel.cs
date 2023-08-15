@@ -19,7 +19,7 @@ namespace ArtistHelper.Model
         public Width<T> MinWidth { get; set; } // 사각형 최소 가로 길이
         public Height<T> MinHeight { get; set; } // 사각형 최소 세로 길이
         public Point<T> EndPoint { get; set; } // 종점
-        public int BoxCount { get; set; } // 사각형 개수
+        public Count<T> BoxCount { get; set; } // 사각형 개수
         public int FigureType { get; set; } // 도형 종류
         public string Name { get; set; }
         #endregion
