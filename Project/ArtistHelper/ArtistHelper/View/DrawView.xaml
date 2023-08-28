@@ -4,10 +4,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:ArtistHelper.View"
+             xmlns:Model="clr-namespace:ArtistHelper.Model"
              xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
              mc:Ignorable="d"
+             Width="1000"
+             Height="1000"
              d:DataContext="{d:DesignInstance {x:Type ViewModels:DrawViewModel}}">
-    <Grid>
-
-    </Grid>
+    <ItemsControl ItemsSource="{Binding Path=ShapeList}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Canvas />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemContainerStyle>
+            <Style TargetType="ContentPresenter">
+                <Setter Property="Canvas.Left"
+                        Value="{Binding X}" />
+                <Setter Property="Canvas.Top"
+                        Value="{Binding Y}" />
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="{x:Type Model:ShapeModel}">
+                <Rectangle Width="{Binding Width}"
+                           Height="{Binding Height}"
+                           StrokeThickness="{Binding StrokeThickness}"
+                           Stroke="{Binding Stroke}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </UserControl>
