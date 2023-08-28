@@ -2,17 +2,13 @@
 using ArtistHelper.ViewModel;
 using DevExpress.Mvvm;
 using DevExpress.Xpf.Docking;
+using System.Security.Permissions;
 
 namespace ArtistHelper.Model
 {
     public class PanelModel : ViewModelBase, IMVVMDockingProperties
     {
         public string Caption { get; set; }
-        public ArtistModel<double> ArtistModels
-        {
-            get { return GetProperty(() => ArtistModels); }
-            set { SetProperty(() => ArtistModels, value); }
-        }
         public DrawView DrawViews
         {
             get { return GetProperty(() => DrawViews); }
@@ -33,7 +29,7 @@ namespace ArtistHelper.Model
         }
         private void Initialize()
         {
-            ArtistModels = new ArtistModel<double>()
+            var artistModel = new ArtistModel<double>()
             {
                 Width = new Width<double>(10, 0, 1000),
                 Height = new Height<double>(100, 0, 1000),
@@ -44,8 +40,15 @@ namespace ArtistHelper.Model
                 BoxCount = new Count<double>(1, 0, 10)
             };
 
-            DrawViewModels = new DrawViewModel(ArtistModels);
+            DrawViewModels = new DrawViewModel(artistModel);
             DrawViews = new DrawView(DrawViewModels);
+        }
+        #endregion
+
+        #region Method
+        public void Update(ArtistModel<double> artist)
+        {
+            DrawViewModels.Update(artist);
         }
         #endregion
     }
