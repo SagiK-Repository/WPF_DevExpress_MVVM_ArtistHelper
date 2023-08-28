@@ -11,10 +11,7 @@ namespace ArtistHelper.Model
         public ArtistModel<double> ArtistModels
         {
             get { return GetProperty(() => ArtistModels); }
-            set
-            {
-                SetProperty(() => ArtistModels, value);
-            }
+            set { SetProperty(() => ArtistModels, value); }
         }
         public DrawView DrawViews
         {
@@ -36,9 +33,6 @@ namespace ArtistHelper.Model
         }
         private void Initialize()
         {
-            DrawViewModels = new DrawViewModel(ArtistModels);
-            DrawViews = new DrawView(DrawViewModels);
-
             ArtistModels = new ArtistModel<double>()
             {
                 Width = new Width<double>(10, 0, 1000),
@@ -49,6 +43,9 @@ namespace ArtistHelper.Model
                 EndPoint = new Point<double>(0, 0),
                 BoxCount = new Count<double>(1, 0, 10)
             };
+
+            DrawViewModels = new DrawViewModel(ArtistModels);
+            DrawViews = new DrawView(DrawViewModels);
         }
         #endregion
     }

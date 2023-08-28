@@ -43,8 +43,10 @@ namespace ArtistHelper
         private void Initiallize()
         {
             ArtistHelperDataBase.ViewPanelName = "NewDraw";
-            ArtistHelperDataBase.PanelModels = new ObservableCollection<PanelModel>();
-            ArtistHelperDataBase.PanelModels.Add(new PanelModel() { Caption = "NewDraw" });
+            ArtistHelperDataBase.PanelModels = new ObservableCollection<PanelModel>
+            {
+                new PanelModel() { Caption = "NewDraw", TargetName = "documentGroup" }
+            };
         }
     }
 }
