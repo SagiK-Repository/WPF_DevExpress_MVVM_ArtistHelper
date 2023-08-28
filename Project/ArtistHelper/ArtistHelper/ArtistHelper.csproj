@@ -78,6 +78,7 @@
     <Compile Include="Model\ArtistModel.cs" />
     <Compile Include="Model\DrawModel.cs" />
     <Compile Include="Model\PanelModel.cs" />
+    <Compile Include="Model\ShapeModel.cs" />
     <Compile Include="ViewModel\DrawViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PanelViewModel.cs" />
