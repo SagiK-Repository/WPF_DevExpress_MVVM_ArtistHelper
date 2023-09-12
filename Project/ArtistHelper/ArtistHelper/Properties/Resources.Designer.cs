@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArtistHelper.Properties
+namespace ArtistModel.Properties
 {
 
 

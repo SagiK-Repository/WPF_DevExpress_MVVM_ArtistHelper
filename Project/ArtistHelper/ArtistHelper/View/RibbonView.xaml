@@ -20,6 +20,7 @@
                                    Content="New"
                                    KeyGesture="Ctrl+N"
                                    CloseSubMenuOnClick="True"
+                                   Command="{Binding Path=NewCommand}"
                                    BarItemDisplayMode="ContentAndGlyph"
                                    Glyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"
                                    LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"/>
@@ -27,6 +28,7 @@
                                    Content="Save"
                                    KeyGesture="Ctrl+S"
                                    CloseSubMenuOnClick="True"
+                                   Command="{Binding Path=SaveCommand}"
                                    BarItemDisplayMode="ContentAndGlyph"
                                    Glyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"
                                    LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"/>
