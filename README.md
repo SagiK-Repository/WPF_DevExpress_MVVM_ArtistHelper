@@ -532,4 +532,569 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 ### RibbonView.xaml UI 개발
 
+- RibbonView.xaml를 다음과 같이 구성한다.
+  ```xml
+  <UserControl x:Class="ArtistHelper.View.RibbonView"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+               xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+               xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:local="clr-namespace:ArtistHelper.View"
+               xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
+               mc:Ignorable="d"
+               d:DataContext="{d:DesignInstance {x:Type ViewModels:RibbonViewModel}}">
+      <dxr:RibbonControl ShowApplicationButton="False"
+                         ToolbarShowCustomizationButton="False"
+                         RibbonStyle="Office2019"
+                         RibbonHeaderVisibility="Collapsed">
+          <dxr:RibbonPage Caption="Control">
+              <dxr:RibbonPageGroup Caption="Image">
+                  <dxb:BarButtonItem x:Name="newBtn"
+                                     Content="New"
+                                     KeyGesture="Ctrl+N"
+                                     CloseSubMenuOnClick="True"
+                                     BarItemDisplayMode="ContentAndGlyph"
+                                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"
+                                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"/>
+                  <dxb:BarButtonItem x:Name="saveBtn"
+                                     Content="Save"
+                                     KeyGesture="Ctrl+S"
+                                     CloseSubMenuOnClick="True"
+                                     BarItemDisplayMode="ContentAndGlyph"
+                                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"
+                                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"/>
+              </dxr:RibbonPageGroup>
+          </dxr:RibbonPage>
+      </dxr:RibbonControl>
+  </UserControl>
+  ```
+  <img src="https://user-images.githubusercontent.com/66783849/214082371-284ccd8e-d176-4b7b-ad54-bd2d0df1b56d.png" width="350">
 
+<br><br>
+
+## ViewModel(기능) 개발
+
+### RibbonViewModel.cs 개발
+
+- RibbonViewModel에 Command를 연결하고, MainViewModel로 Messenger를 전달한다.
+  ```cs
+  #region 커멘드
+  public ICommand NewCommand { get; set; }
+  public ICommand SaveCommand { get; set; }
+  #endregion
+
+  #region 생성자
+  public RibbonViewModel()
+  {
+      SaveCommand = new DelegateCommand(_saveCommandAction);
+      NewCommand = new DelegateCommand(_newCommandAction);
+  }
+  #endregion
+
+  #region 메소드
+  private void _saveCommandAction()
+  {
+      Messenger.Default.Send("SavePanel");
+  }
+
+  private void _newCommandAction()
+  {
+      Messenger.Default.Send("NewPanel");
+  }
+  #endregion
+  ```
+  ```xml
+  <dxb:BarButtonItem x:Name="newBtn"
+                     Content="New"
+                     KeyGesture="Ctrl+N"
+                     CloseSubMenuOnClick="True"
+                     Command="{Binding Path=NewCommand}"
+                     BarItemDisplayMode="ContentAndGlyph"
+                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"
+                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"/>
+  <dxb:BarButtonItem x:Name="saveBtn"
+                     Content="Save"
+                     KeyGesture="Ctrl+S"
+                     CloseSubMenuOnClick="True"
+                     Command="{Binding Path=SaveCommand}"
+                     BarItemDisplayMode="ContentAndGlyph"
+                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"
+                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"/>
+  ```
+- MainViewModel은 다음과 같이 추가한다.
+  ```cs
+  #region 메소드
+  void Initialize()
+  {
+      RibbonViewModels = new RibbonViewModel();
+      RibbonViews = new RibbonView(RibbonViewModels);
+
+      PanelViewModels = new PanelViewModel();
+      PanelViews = new PanelView(PanelViewModels);
+
+      Messenger.Default.Register<string>(this, OnMessage);
+  }
+  #endregion
+
+  #region Messenger Method
+  private void OnMessage(string text)
+  {
+      if (text == null || text.Length == 0)
+          return;
+
+      var messengerType = StringToMessenger(text);
+
+      switch (messengerType)
+      {
+          case _messengerType.SavePanel:
+              MessageBox.Show("SavePanel");
+              break;
+
+          case _messengerType.NewPanel:
+              MessageBox.Show("NewPanel");
+              break;
+
+          default:
+              break;
+      }
+  }
+
+  private _messengerType StringToMessenger(string message)
+  {
+      var type = default(_messengerType);
+      foreach (_messengerType t in Enum.GetValues(typeof(_messengerType)))
+          if (t.ToString().StartsWith(message, StringComparison.CurrentCultureIgnoreCase))
+          {
+              type = t;
+              break;
+          }
+
+      return type;
+  }
+  #endregion
+  ```
+  <img src="https://user-images.githubusercontent.com/66783849/214090404-f345efc8-2755-4d46-83fc-de5b2c4e5250.png" width="350">
+
+<br>
+
+### ArtistModel.cs 개발
+
+- ArtistModel.cs를 다음과 같이 구성한다.
+  ```cs
+  #region 프로퍼티
+  public int Width { get; set; } // 이미지 가로 사이즈
+  public int Height { get; set; } // 이미지 세로 사이즈
+  public int LineGrid { get; set; } // 선 굵기
+  public int MinWidth { get; set; } // 사각형 최소 가로 길이
+  public int MinHeight { get; set; } // 사각형 최소 세로 길이
+  public int EndPointX { get; set; } // 종점 x
+  public int EndPointY { get; set; } // 종점 y
+  public int BoxCount { get; set; } // 사각형 개수
+  public int FigureType { get; set; } // 도형 종류
+  public string Name { get; set; }
+  #endregion
+
+  #region 생성자
+  public ArtistModel() { }
+  public ArtistModel(ArtistModel artists)
+  {
+      Width = artists.Width;
+      Height = artists.Height;
+      LineGrid = artists.LineGrid;
+      MinWidth = artists.MinWidth;
+      MinHeight = artists.MinHeight;
+      EndPointX = artists.EndPointX;
+      EndPointY = artists.EndPointY;
+      BoxCount = artists.BoxCount;
+      FigureType = artists.FigureType;
+  }
+  #endregion
+  ```
+
+<br>
+
+### ArtistModel DDD형식 구현
+
+- 아래는 Width 변수에 대해서 DDD로 구현하였다. 나머지 변수들도 특성에 맞게 구현한다.
+  ```cs
+  public abstract class ValueObject
+     {
+         protected static bool EqualOperator(ValueObject left, ValueObject right)
+         {
+             if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+             {
+                 return false;
+             }
+             return ReferenceEquals(left, right) || left.Equals(right);
+         }
+ 
+         protected static bool NotEqualOperator(ValueObject left, ValueObject right)
+         {
+             return !(EqualOperator(left, right));
+         }
+ 
+         protected abstract IEnumerable<object> GetEqualityComponents();
+ 
+         public override bool Equals(object obj)
+         {
+             if (obj == null || obj.GetType() != GetType())
+             {
+                 return false;
+             }
+ 
+             var other = (ValueObject)obj;
+ 
+             return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+         }
+ 
+         public override int GetHashCode()
+         {
+             return GetEqualityComponents()
+                 .Select(x => x != null ? x.GetHashCode() : 0)
+                 .Aggregate((x, y) => x ^ y);
+         }
+         public static bool operator ==(ValueObject one, ValueObject two)
+         {
+             return EqualOperator(one, two);
+         }
+ 
+         public static bool operator !=(ValueObject one, ValueObject two)
+         {
+             return NotEqualOperator(one, two);
+         }
+     }
+ 
+  public class Width : ValueObject
+  {
+      private int _minValue = 0;
+      private int _maxValue = 2000;
+      private int _value;
+ 
+      public Width() => _value = 0;
+ 
+      public Width(int value)
+      {
+          ModifyValue(value);
+      }
+      public Width(int value, int minValue, int maxValue) : this(value)
+      {
+          SetMinValue(minValue);
+          SetMaxValue(maxValue);
+      }
+ 
+      public void  ModifyValue(int value)
+      {
+          //if(value == null) throw new ArgumentNullException(nameof(value));
+ 
+          if (value < _minValue)
+          {
+              _value = _minValue;
+              throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+          }
+ 
+          if (value > _maxValue)
+          {
+              _value = _maxValue;
+              throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+          }
+ 
+          _value = value;
+      }
+      public void SetMinValue(int value)
+      {
+          if(value > _maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
+          
+          if (_value < value)
+          {
+              _value = value;
+              _minValue = value;
+              throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 작습니다. 임의로 Value값을 조정합니다.");
+          }
+          _minValue = value;
+      }
+      public void SetMaxValue(int value)
+      {
+          if (value < _minValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
+ 
+          if (_value > value)
+          {
+              _value = value;
+              _maxValue = value;
+              throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 큽니다. 임의로 Value값을 조정합니다.");
+          }
+          _maxValue = value;
+      }
+      public void SetMinMaxValue(int minValue, int maxValue)
+      {
+          _minValue = minValue;
+          _maxValue = maxValue;
+      }
+      public int GetValue()
+      {
+          return _value;
+      }
+      protected override IEnumerable<object> GetEqualityComponents()
+      {
+          yield return _value;
+      }
+  }
+  ```
+- 프로퍼티를 다음과 같이 구성한다.
+  ```cs
+  #region 프로퍼티
+  public Width Width { get; set; } // 이미지 가로 사이즈
+  ```
+
+<br>
+
+### ArtistModel DDD형식 Test
+
+- DDD Value를 Test 하기 위해, 다음과 같이 Test 프로젝트 참조에서 Artist 프로젝트를 추가한다.
+  <img src="https://user-images.githubusercontent.com/66783849/214193649-9e73d3b5-02d4-4a95-b371-9848d2cac22c.png" width="500">
+- 다음과 같이 코드를 구성한다.
+  ```cs
+  using ArtistHelper.Model;
+  using FluentAssertions;
+  using Xunit;
+  
+  namespace ArtistHelper.test.Model
+  {
+      public class ArtistModel_Test
+      {
+          #region DDD Value Test
+          [Fact(DisplayName = "DDD Value - Artist.Width")]
+          public void DDDTest_Width_Test()
+          {
+              //Arange
+              var width = new Width(0);
+  
+              //Act
+              bool isBool = width.GetValue() == 0;
+  
+              //Asserts
+              isBool.Should().BeTrue();
+          }
+          #endregion
+      }
+  }
+  ```
+- 테스트 탐색기를 열어, 테스트를 진행한다.
+  <img src="https://user-images.githubusercontent.com/66783849/214194526-c04c9b2f-e27f-411a-a695-8627c511bb7b.png" width="700">
+  
+
+<br>
+
+
+### ArtistModel DDD 형식 구현 확장
+
+- Width와 Height는 같은 속성을 갖고 있다. 다음과 같이 선언할 수 있다.
+  ```cs
+  public class Height : Width 
+  {
+      public Height() : base() { }
+      public Height(int value) : base(value) { }
+      public Height(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
+  }
+  ```
+- Test 시에도 Width와 Height가 문제없이 동작하는지 확인한다.
+
+<br>
+
+### ArtistModel DDD 형식 구현 확장 : Generic
+
+- int, double 형식등을 고려하여 다음과 같이 재구성하였다.
+  ```cs
+  public class ArtistModel<T> where T : struct
+  {
+      #region 프로퍼티
+        public Width<T> Width { get; set; } // 이미지 가로 사이즈
+        public Height<T> Height { get; set; } // 이미지 세로 사이즈
+        public Grid<T> LineGrid { get; set; } // 선 굵기
+        public Width<T> MinWidth { get; set; } // 사각형 최소 가로 길이
+        public Height<T> MinHeight { get; set; } // 사각형 최소 세로 길이
+        public Point<T> EndPoint { get; set; } // 종점
+        public int BoxCount { get; set; } // 사각형 개수
+        public int FigureType { get; set; } // 도형 종류
+        public string Name { get; set; }
+        #endregion
+
+      #region 생성자
+        public ArtistModel() { }
+        public ArtistModel(ArtistModel<T> artists)
+        {
+            Width = artists.Width;
+            Height = artists.Height;
+            LineGrid = artists.LineGrid;
+            MinWidth = artists.MinWidth;
+            MinHeight = artists.MinHeight;
+            EndPoint = artists.EndPoint;
+            BoxCount = artists.BoxCount;
+            FigureType = artists.FigureType;
+        }
+        #endregion
+  }
+
+  public class Width<T> : ValueObject where T : struct
+    {
+        private double _minValue = 0;
+        private double _maxValue = 2000;
+        private double _value;
+        private bool _exceptionSwitch = false;
+
+        public Width() => _value = 0.0;
+
+        public Width(T value)
+        {
+            ModifyValue(Convert.ToDouble(value));
+        }
+        public Width(double value)
+        {
+            ModifyValue(value);
+        }
+        public Width(T value, T minValue, T maxValue)
+        {
+            SetMinValue(Convert.ToDouble(minValue));
+            SetMaxValue(Convert.ToDouble(maxValue));
+            ModifyValue(Convert.ToDouble(value));
+        }
+        public Width(T value, double minValue, double maxValue)
+        {
+            SetMinValue(minValue);
+            SetMaxValue(maxValue);
+            ModifyValue(Convert.ToDouble(value));
+        }
+        public Width(double value, double minValue, double maxValue)
+        {
+            SetMinValue(minValue);
+            SetMaxValue(maxValue);
+            ModifyValue(value);
+        }
+
+        public void ModifyValue(double value)
+        {
+            //if(value == null) throw new ArgumentNullException(nameof(value));
+
+            if (value < _minValue)
+            {
+                _value = _minValue;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+                return;
+            }
+
+            if ( value > _maxValue)
+            {
+                _value = _maxValue;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
+                return;
+            }
+
+            _value = value;
+        }
+        public void SetMinValue(double value)
+        {
+            if (value > _maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
+
+            if (_value < value)
+            {
+                _value = value;
+                _minValue = value;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 작습니다. 임의로 Value값을 조정합니다.");
+                return;
+            }
+            _minValue = value;
+        }
+        public void SetMaxValue(double value)
+        {
+            if (value < _minValue) throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다.");
+
+            if (_value > value)
+            {
+                _value = value;
+                _maxValue = value;
+                if (_exceptionSwitch)
+                    throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 큽니다. 임의로 Value값을 조정합니다.");
+                return;
+            }
+            _maxValue = value;
+        }
+        public void SetMinMaxValue(T minValue, T maxValue)
+        {
+            SetMinValue(Convert.ToDouble(minValue));
+            SetMaxValue(Convert.ToDouble(maxValue));
+        }
+        public void SetMinMaxValue(double minValue, double maxValue)
+        {
+            SetMinValue(minValue);
+            SetMaxValue(maxValue);
+        }
+        public double GetValue()
+        {
+            return _value;
+        }
+
+        public void SetException(bool eSwitch)
+        {
+            _exceptionSwitch = eSwitch;
+        }
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return _value;
+        }
+    }
+  ```
+
+<br>
+
+### ArtistModel DDD 형식 Test
+
+- Test의 품질을 보다 향상시키기 위해, 다음 4가지를 고려하여 Test를 작성하였다.
+  - Test는 기능별로 따로 구분해야 한다. (value Test, MinMax Test, Exception Test등)
+  - Test의 함수는 간단해야 한다. (Arange, Act, Assert 각각 한 줄)
+  - 빠르고 직관적인 Test (Fact만 사용하는 것이 아닌, Theory를 활용한다)
+  - 최대한 많이, 시간이 오래걸리더라도 정성들여 작성한다.
+- 다음과 같이 Test 코드를 재구성하였다.
+  ```cs
+  [InlineData(1, 1.0)]
+  [InlineData(1000, 1000.0)]
+  [InlineData(4000, 2000.0)]
+  [InlineData(-2000, 0.0)]
+  [Theory(DisplayName = "DDD Value : Artist.Width<int> Value Test")]
+  public void DDDTest_Width_int_Test(object value, double outValue)
+  {
+      // Arange
+
+      // Act
+      var width = new Width<int>(Convert.ToInt32(value));
+
+      // Assert
+      width.GetValue().Should().Be(outValue);
+  }
+  ```
+
+<br>
+
+### PanelModel.cs 개발
+
+<br>
+
+### PanelViewModel.cs 개발
+
+<br>
+
+### PanelViewModel.cs 개발
+
+<br>
+
+###
+
+<br><br>
+
+##
+
+###

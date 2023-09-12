@@ -43,8 +43,13 @@
     <Reference Include="DevExpress.Xpf.Layout.v22.2.Core, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.LayoutControl.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Ribbon.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.5.2.0\lib\net46\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -67,10 +72,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\ArtistHelperDataBase.cs" />
+    <Compile Include="Common\Service\DockLayoutManagerEventsService.cs" />
     <Compile Include="Interface\IWindowView.cs" />
     <Compile Include="Model\ArtistModel.cs" />
     <Compile Include="Model\DrawModel.cs" />
     <Compile Include="Model\PanelModel.cs" />
+    <Compile Include="Model\ShapeModel.cs" />
     <Compile Include="ViewModel\DrawViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PanelViewModel.cs" />
@@ -106,6 +114,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -114,7 +123,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Utility.LogService.Test\Utility.LogService.Test.csproj">
+      <Project>{fae55ea0-c40e-4681-b4de-801eb6e5a346}</Project>
+      <Name>Utility.LogService.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Utility.LogService\Utility.LogService.csproj">
+      <Project>{faf13b94-84aa-4c47-bd6c-391a48927e29}</Project>
+      <Name>Utility.LogService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="View\DrawView.xaml">
       <SubType>Designer</SubType>
