@@ -7,8 +7,8 @@
              xmlns:Model="clr-namespace:ArtistHelper.Model"
              xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
              mc:Ignorable="d"
-             Width="1000"
-             Height="1000"
+             Width="5000"
+             Height="5000"
              d:DataContext="{d:DesignInstance {x:Type ViewModels:DrawViewModel}}">
     <ItemsControl ItemsSource="{Binding Path=ShapeList}">
         <ItemsControl.ItemsPanel>
