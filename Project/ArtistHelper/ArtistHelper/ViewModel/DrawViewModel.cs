@@ -2,7 +2,6 @@
 using DevExpress.Mvvm;
 using System;
 using System.Collections.ObjectModel;
-using System.Net;
 using System.Windows.Media;
 
 namespace ArtistHelper.ViewModel
@@ -74,15 +73,17 @@ namespace ArtistHelper.ViewModel
 
             double widthStep = (Width - MinWidth) / (BoxCount - 1);
             double heightStep = (Height - MinHeight) / (BoxCount - 1);
-            double xStep = (EndPointX - Width / 2) / (BoxCount - 1);
-            double yStep = (EndPointY - Height / 2) / (BoxCount - 1);
+            double xStep = EndPointX / (BoxCount - 1);
+            double yStep = EndPointY / (BoxCount - 1);
+            double minWidthStep = (MinWidth / 2) / (BoxCount - 1);
+            double minHeightStep = (MinHeight / 2) / (BoxCount - 1);
 
             for (int i = 0; i < BoxCount; i++)
             {
                 double boxWidth = Width - (i * widthStep);
                 double boxHeight = Height - (i * heightStep);
-                double xPos = (i * xStep) + (Width / 2);
-                double yPos = (i * yStep) + (Height / 2);
+                double xPos = (i * xStep) - (i * minWidthStep);
+                double yPos = (i * yStep) - (i * minHeightStep);
 
                 ShapeList.Add(new ShapeModel
                 {
