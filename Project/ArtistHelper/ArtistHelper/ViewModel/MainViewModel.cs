@@ -1,7 +1,8 @@
-﻿using ArtistHelper.View;
+﻿using ArtistHelper.Common;
+using ArtistHelper.Model;
+using ArtistHelper.View;
 using DevExpress.Mvvm;
-using System;
-using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace ArtistHelper.ViewModel
 {
@@ -19,6 +20,10 @@ namespace ArtistHelper.ViewModel
         #endregion
 
         #region 프로퍼티
+        public ObservableCollection<PanelModel> PanelModels
+        {
+            get { return ArtistHelperDataBase.PanelModels; }
+        }
         public RibbonView RibbonViews
         {
             get { return GetProperty(() => RibbonViews); }
@@ -64,36 +69,6 @@ namespace ArtistHelper.ViewModel
         #region Messenger Method
         private void OnMessage(string text)
         {
-            if (text == null || text.Length == 0)
-                return;
-
-            var messengerType = StringToMessenger(text);
-
-            switch (messengerType)
-            {
-                case _messengerType.SavePanel:
-                    MessageBox.Show("SavePanel");
-                    break;
-
-                case _messengerType.NewPanel:
-                    MessageBox.Show("NewPanel");
-                    break;
-
-                default:
-                    break;
-            }
-        }
-        private _messengerType StringToMessenger(string message)
-        {
-            var type = default(_messengerType);
-            foreach (_messengerType t in Enum.GetValues(typeof(_messengerType)))
-                if (t.ToString().StartsWith(message, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    type = t;
-                    break;
-                }
-
-            return type;
         }
         #endregion
     }
