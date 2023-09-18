@@ -1,4 +1,6 @@
-﻿using ArtistHelper.Model;
+﻿using ArtistHelper.Interface;
+using ArtistHelper.Model;
+using ArtistHelper.Common.ShapeList;
 using DevExpress.Mvvm;
 using System;
 using System.Collections.ObjectModel;
@@ -8,6 +10,8 @@ namespace ArtistHelper.ViewModel
 {
     public class DrawViewModel : ViewModelBase
     {
+        IShape _shape;
+
         #region 프로퍼티
         public ArtistModel<double> ArtistModels { get; set; }
         public double Width
@@ -56,6 +60,7 @@ namespace ArtistHelper.ViewModel
         public DrawViewModel(ArtistModel<double> artistModel)
         {
             ArtistModels = artistModel;
+            _shape = new Box();
         }
         #endregion
 
@@ -69,32 +74,7 @@ namespace ArtistHelper.ViewModel
 
         void _createBoxData()
         {
-            ShapeList = new ObservableCollection<ShapeModel>();
-
-            double widthStep = (Width - MinWidth) / (BoxCount - 1);
-            double heightStep = (Height - MinHeight) / (BoxCount - 1);
-            double xStep = EndPointX / (BoxCount - 1);
-            double yStep = EndPointY / (BoxCount - 1);
-            double minWidthStep = (MinWidth / 2) / (BoxCount - 1);
-            double minHeightStep = (MinHeight / 2) / (BoxCount - 1);
-
-            for (int i = 0; i < BoxCount; i++)
-            {
-                double boxWidth = Width - (i * widthStep);
-                double boxHeight = Height - (i * heightStep);
-                double xPos = (i * xStep) - (i * minWidthStep);
-                double yPos = (i * yStep) - (i * minHeightStep);
-
-                ShapeList.Add(new ShapeModel
-                {
-                    Width = boxWidth,
-                    Height = boxHeight,
-                    StrokeThickness = LineGrid,
-                    Stroke = Brushes.Black,
-                    X = xPos,
-                    Y = yPos
-                });
-            }
+            ShapeList = _shape.CreateList(ArtistModels, Brushes.Black);
         }
         #endregion
     }

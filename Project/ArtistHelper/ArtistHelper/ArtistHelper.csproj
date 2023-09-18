@@ -75,6 +75,8 @@
     <Compile Include="Common\ArtistHelperDataBase.cs" />
     <Compile Include="Common\Service\DockLayoutManagerEventsService.cs" />
     <Compile Include="Common\Service\NewPanelService.cs" />
+    <Compile Include="Common\ShapeList\Box.cs" />
+    <Compile Include="Interface\IShape.cs" />
     <Compile Include="Interface\IWindowView.cs" />
     <Compile Include="Model\ArtistModel.cs" />
     <Compile Include="Model\DrawModel.cs" />
