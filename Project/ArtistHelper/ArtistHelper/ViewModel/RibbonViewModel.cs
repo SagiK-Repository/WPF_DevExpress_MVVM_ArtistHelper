@@ -27,7 +27,11 @@ namespace ArtistHelper.ViewModel
 
         private void _newCommandAction()
         {
-            MessageBox.Show("NewPanel");
+            _logger.InfoAction("Start New Command", () =>
+            {
+                var newPanel = NewPanelService.GetNewPanel().Item1;
+                ArtistHelperDataBase.PanelModels.Add(newPanel);
+            });
         }
         #endregion
     }
