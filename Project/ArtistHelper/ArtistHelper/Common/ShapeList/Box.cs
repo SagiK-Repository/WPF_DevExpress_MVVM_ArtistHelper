@@ -15,10 +15,10 @@ namespace ArtistHelper.Common.ShapeList
         private double _height { get => _artistModel.Height.GetValue(); }
         private double _minWidth { get => _artistModel.MinWidth.GetValue(); }
         private double _minHeight { get => _artistModel.MinHeight.GetValue(); }
-        private double _boxCount { get => _artistModel.BoxCount.GetValue(); }
         private double _lineGrid { get => _artistModel.LineGrid.GetValue(); }
         private double _endPointX { get => _artistModel.EndPoint.X.GetValue(); }
         private double _endPointY { get => _artistModel.EndPoint.Y.GetValue(); }
+        private int _boxCount { get => Convert.ToInt32(_artistModel.BoxCount.GetValue()); }
 
         public ObservableCollection<ShapeModel> CreateList(ArtistModel<double> artistModel, SolidColorBrush colorBrush)
         {

@@ -14,38 +14,6 @@ namespace ArtistHelper.ViewModel
 
         #region 프로퍼티
         public ArtistModel<double> ArtistModels { get; set; }
-        public double Width
-        {
-            get => ArtistModels.Width.GetValue();
-        }
-        public double Height
-        {
-            get => ArtistModels.Height.GetValue();
-        }
-        public double LineGrid
-        {
-            get => ArtistModels.LineGrid.GetValue();
-        }
-        public double MinWidth
-        {
-            get => ArtistModels.MinWidth.GetValue();
-        }
-        public double MinHeight
-        {
-            get => ArtistModels.MinHeight.GetValue();
-        }
-        public double EndPointX
-        {
-            get => ArtistModels.EndPoint.X.GetValue();
-        }
-        public double EndPointY
-        {
-            get => ArtistModels.EndPoint.Y.GetValue();
-        }
-        public int BoxCount
-        {
-            get => Convert.ToInt32(ArtistModels.BoxCount.GetValue());
-        }
         public ObservableCollection<ShapeModel> ShapeList
         {
             get { return GetProperty(() => ShapeList); }
