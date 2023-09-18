@@ -21,9 +21,6 @@ namespace ArtistHelper.ViewModel
         }
         #endregion
 
-        #region Box Method
-        #endregion
-
         #region 생성자
         public DrawViewModel(ArtistModel<double> artistModel)
         {
