@@ -64,10 +64,10 @@ namespace ArtistHelper.ViewModel
         {
             ArtistModels = artistModel;
 
-            CreateBoxData();
+            _createBoxData();
         }
 
-        public void CreateBoxData()
+        void _createBoxData()
         {
             ShapeList = new ObservableCollection<ShapeModel>();
 

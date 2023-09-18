@@ -3,12 +3,14 @@ using ArtistHelper.Model;
 using ArtistHelper.View;
 using DevExpress.Mvvm;
 using System.Collections.ObjectModel;
+using Utility.LogService;
 
 namespace ArtistHelper.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
         #region 변수
+        Logger _logger;
         #endregion
 
         #region Enum
@@ -49,12 +51,14 @@ namespace ArtistHelper.ViewModel
         #region 생성자
         public MainViewModel()
         {
-            Initialize();
+            _logger = new Logger(NLog.LogManager.GetCurrentClassLogger());
+
+            _logger.LogSecond("Initiallize", () => _initiallize());
         }
         #endregion
 
         #region 메소드
-        void Initialize()
+        void _initiallize()
         {
             RibbonViewModels = new RibbonViewModel();
             RibbonViews = new RibbonView(RibbonViewModels);

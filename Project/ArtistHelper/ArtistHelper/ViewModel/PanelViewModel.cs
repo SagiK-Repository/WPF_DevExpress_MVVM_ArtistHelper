@@ -1,9 +1,7 @@
 ﻿using ArtistHelper.Common;
 using ArtistHelper.Model;
 using DevExpress.Mvvm;
-using DevExpress.Mvvm.POCO;
 using System;
-using System.Linq;
 
 namespace ArtistHelper.ViewModel
 {
@@ -96,9 +94,9 @@ namespace ArtistHelper.ViewModel
         #region 생성자
         public PanelViewModel()
         {
-            Initialize();
+            _initialize();
         }
-        private void Initialize()
+        void _initialize()
         {
             ArtistModels = new ArtistModel<double>()
             {
@@ -114,7 +112,7 @@ namespace ArtistHelper.ViewModel
         #endregion
 
         #region 메소드
-        private void _update()
+        void _update()
         {
             ArtistHelperDataBase.GetPenel().Update(ArtistModels);
         }

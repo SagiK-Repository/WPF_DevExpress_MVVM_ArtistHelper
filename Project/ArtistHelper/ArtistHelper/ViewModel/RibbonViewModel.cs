@@ -9,7 +9,7 @@ namespace ArtistHelper.ViewModel
 {
     public class RibbonViewModel
     {
-        private Logger _logger;
+        Logger _logger;
 
         #region 커멘드
         public ICommand NewCommand { get; set; }
@@ -24,7 +24,7 @@ namespace ArtistHelper.ViewModel
             _logger.LogSecond("Initiallize", () => _initiallize());
         }
 
-        private void _initiallize()
+        void _initiallize()
         {
             SaveCommand = new DelegateCommand(_saveCommandAction);
             NewCommand = new DelegateCommand(_newCommandAction);
@@ -32,7 +32,7 @@ namespace ArtistHelper.ViewModel
         #endregion
 
         #region 메소드
-        private void _saveCommandAction()
+        void _saveCommandAction()
         {
             _logger.InfoAction("Start Save Command", () =>
             {
@@ -40,7 +40,7 @@ namespace ArtistHelper.ViewModel
             });
         }
 
-        private void _newCommandAction()
+        void _newCommandAction()
         {
             _logger.InfoAction("Start New Command", () =>
             {

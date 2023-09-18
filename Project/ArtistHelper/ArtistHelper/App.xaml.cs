@@ -12,7 +12,7 @@ namespace ArtistHelper
 {
     public partial class App : Application
     {
-        private Logger _logger;
+        Logger _logger;
 
         public App()
         {
@@ -42,7 +42,7 @@ namespace ArtistHelper
             });
         }
 
-        private void _initiallize()
+        void _initiallize()
         {
             (PanelModel panelModel, string panelName) = NewPanelService.GetNewPanel();
 
