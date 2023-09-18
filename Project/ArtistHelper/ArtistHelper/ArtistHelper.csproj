@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Common\ArtistHelperDataBase.cs" />
     <Compile Include="Common\Service\DockLayoutManagerEventsService.cs" />
+    <Compile Include="Common\Service\NewPanelService.cs" />
     <Compile Include="Interface\IWindowView.cs" />
     <Compile Include="Model\ArtistModel.cs" />
     <Compile Include="Model\DrawModel.cs" />
