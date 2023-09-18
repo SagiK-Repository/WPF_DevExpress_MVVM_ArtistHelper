@@ -1,4 +1,5 @@
 ﻿using ArtistHelper.Common;
+using ArtistHelper.Common.Service;
 using ArtistHelper.Model;
 using ArtistHelper.View;
 using ArtistHelper.ViewModel;
@@ -40,13 +41,13 @@ namespace ArtistHelper
                 Environment.Exit(0);
             });
         }
+
         private void Initiallize()
         {
-            ArtistHelperDataBase.ViewPanelName = "NewDraw";
-            ArtistHelperDataBase.PanelModels = new ObservableCollection<PanelModel>
-            {
-                new PanelModel() { Caption = "NewDraw", TargetName = "documentGroup" }
-            };
+            (PanelModel panelModel, string panelName) = NewPanelService.GetNewPanel();
+
+            ArtistHelperDataBase.ViewPanelName = panelName;
+            ArtistHelperDataBase.PanelModels = new ObservableCollection<PanelModel> { panelModel };
         }
     }
 }
