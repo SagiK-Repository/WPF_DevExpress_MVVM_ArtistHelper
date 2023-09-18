@@ -27,6 +27,7 @@ namespace ArtistHelper.Common.Service
             string newName = "";
 
             _logger.TryCatchStartEndLog("Get New Name", () => newName = _getName());
+            _logger.Info($"Get New Name, {newName}");
 
             return newName;
         }

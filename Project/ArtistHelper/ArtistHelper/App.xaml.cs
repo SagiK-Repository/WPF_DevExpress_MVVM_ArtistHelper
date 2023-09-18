@@ -18,7 +18,7 @@ namespace ArtistHelper
         {
             _logger = new Logger(NLog.LogManager.GetCurrentClassLogger());
 
-            _logger.LogSecond("Initiallize", () => Initiallize());
+            _logger.LogSecond("Initiallize", () => _initiallize());
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -42,7 +42,7 @@ namespace ArtistHelper
             });
         }
 
-        private void Initiallize()
+        private void _initiallize()
         {
             (PanelModel panelModel, string panelName) = NewPanelService.GetNewPanel();
 
