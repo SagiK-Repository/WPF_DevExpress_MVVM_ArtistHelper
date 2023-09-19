@@ -1,10 +1,5 @@
 ﻿using ArtistHelper.Model;
-using DevExpress.Xpf.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utility.LogService;
 
 namespace ArtistHelper.Common.Service
@@ -32,6 +27,7 @@ namespace ArtistHelper.Common.Service
             return newName;
         }
 
+        #region private Method
         private static (PanelModel, string) _getNewPanel()
         {
             string panelName = GetName();
@@ -41,8 +37,8 @@ namespace ArtistHelper.Common.Service
 
         private static string _getName()
         {
-            bool isNotExistDefaultName = ArtistHelperDataBase.PanelModels.Where(x => x.Caption == "NewDraw").FirstOrDefault() is null;
-            if (isNotExistDefaultName)
+            var panelModel = ArtistHelperDataBase.PanelModels.FirstOrDefault(x => x.Caption == "NewDraw");
+            if (panelModel == null)
                 return "NewDraw";
 
             return _getNumberName();
@@ -53,9 +49,12 @@ namespace ArtistHelper.Common.Service
             int num = 1;
             while (true)
             {
-                bool isNotExsistPanelNumberName = ArtistHelperDataBase.PanelModels.Where(x => x.Caption == $"NewDraw {num}").FirstOrDefault() is null;                if (isNotExsistPanelNumberName)
+                var panelModel = ArtistHelperDataBase.PanelModels.FirstOrDefault(x => x.Caption == $"NewDraw {num}");
+                if (panelModel == null)
                     return $"NewDraw {num}";
+                num++;
             }
-        }
+        } 
+        #endregion
     }
 }

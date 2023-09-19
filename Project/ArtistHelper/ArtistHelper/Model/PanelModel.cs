@@ -2,7 +2,6 @@
 using ArtistHelper.ViewModel;
 using DevExpress.Mvvm;
 using DevExpress.Xpf.Docking;
-using System.Security.Permissions;
 
 namespace ArtistHelper.Model
 {
@@ -25,9 +24,9 @@ namespace ArtistHelper.Model
         #region 생성자
         public PanelModel()
         {
-            Initialize();
+            _initialize();
         }
-        private void Initialize()
+        void _initialize()
         {
             var artistModel = new ArtistModel<double>()
             {
