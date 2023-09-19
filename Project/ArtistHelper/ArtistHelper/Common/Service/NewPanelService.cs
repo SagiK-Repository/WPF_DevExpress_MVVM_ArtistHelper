@@ -1,10 +1,5 @@
 ﻿using ArtistHelper.Model;
-using DevExpress.Xpf.Core;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utility.LogService;
 
 namespace ArtistHelper.Common.Service
