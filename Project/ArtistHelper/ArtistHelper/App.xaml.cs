@@ -44,6 +44,8 @@ namespace ArtistHelper
 
         void _initiallize()
         {
+            ArtistHelperDataBase.PanelModels = new ObservableCollection<PanelModel>();
+
             (PanelModel panelModel, string panelName) = NewPanelService.GetNewPanel();
 
             ArtistHelperDataBase.ViewPanelName = panelName;
