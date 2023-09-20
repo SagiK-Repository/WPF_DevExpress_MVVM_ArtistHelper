@@ -3,6 +3,7 @@ using ArtistHelper.Model;
 using ArtistHelper.View;
 using DevExpress.Mvvm;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Utility.LogService;
 
 namespace ArtistHelper.ViewModel
@@ -71,9 +72,30 @@ namespace ArtistHelper.ViewModel
         #endregion
 
         #region Messenger Method
-        private void OnMessage(string text)
+        private void OnMessage(string receiveMessage)
         {
+            _logger.Info("Receive Messaged");
+            _logger.TryCatchStartEndLog("Switch Message", () => _caseSwitch(receiveMessage));
         }
         #endregion
+
+        private void _caseSwitch(string receiveMessage)
+        {
+            if (receiveMessage.StartsWith("DockLayoutManagerEventsService -> MainViewModel : Docking Item Activating : "))
+            {
+                var panelName = receiveMessage.Substring("DockLayoutManagerEventsService -> MainViewModel : Docking Item Activating : ".Length);
+                _setPanel(panelName);
+            }
+        }
+        private void _setPanel(string panelName)
+        {
+            ArtistHelperDataBase.ViewPanelName = panelName;
+
+            var panelModel = ArtistHelperDataBase.PanelModels.FirstOrDefault(x => x.Caption == panelName);
+            if (panelModel != null)
+                PanelViewModels.ArtistModels = panelModel.DrawViewModels.ArtistModels;
+            else
+                _logger.Error("Fail Set Panel, panelModel is null");
+        }
     }
 }
