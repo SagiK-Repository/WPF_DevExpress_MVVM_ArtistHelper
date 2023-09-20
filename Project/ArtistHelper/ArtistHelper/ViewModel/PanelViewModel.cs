@@ -2,10 +2,11 @@
 using ArtistHelper.Model;
 using DevExpress.Mvvm;
 using System;
+using System.ComponentModel;
 
 namespace ArtistHelper.ViewModel
 {
-    public class PanelViewModel : ViewModelBase
+    public class PanelViewModel : ViewModelBase, INotifyPropertyChanged
     {
         #region 프로퍼티
         public ArtistModel<double> ArtistModels
@@ -105,7 +106,23 @@ namespace ArtistHelper.ViewModel
         #region 메소드
         void _update()
         {
+            OnPropertyChanged(nameof(Width));
+            OnPropertyChanged(nameof(Height));
+            OnPropertyChanged(nameof(LineGrid));
+            OnPropertyChanged(nameof(MinWidth));
+            OnPropertyChanged(nameof(MinHeight));
+            OnPropertyChanged(nameof(EndPointX));
+            OnPropertyChanged(nameof(EndPointY));
+            OnPropertyChanged(nameof(BoxCount));
             ArtistHelperDataBase.GetPenel().Update(ArtistModels);
+        }
+        #endregion
+
+        #region PropertyChanged Medhod
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }
