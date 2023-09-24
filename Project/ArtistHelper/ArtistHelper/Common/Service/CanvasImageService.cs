@@ -15,7 +15,10 @@ namespace ArtistHelper.Common.Service
         public void SaveCanvasAsImage(Canvas canvas, string path)
         {
             if (canvas == null || string.IsNullOrEmpty(path))
+            {
                 _logger.Error("Input Data Is Null");
+                MessageBox.Show("Image Is Null", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             else
                 _logger.StartEndLog("Save Canvas As Image", () => _saveCanvasAsImage(canvas, path));
         }
@@ -49,8 +52,8 @@ namespace ArtistHelper.Common.Service
 
         private static void _rendererCanvas(Canvas canvas)
         {
-            canvas.Measure(new Size(canvas.Width, canvas.Height));
-            canvas.Arrange(new Rect(new Size(canvas.Width, canvas.Height)));
+            canvas.Measure(new Size(canvas.ActualWidth, canvas.ActualHeight));
+            canvas.Arrange(new Rect(new Size(canvas.ActualWidth, canvas.ActualHeight)));
             canvas.UpdateLayout();
         }
 

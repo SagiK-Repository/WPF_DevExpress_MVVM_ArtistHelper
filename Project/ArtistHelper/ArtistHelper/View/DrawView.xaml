@@ -7,13 +7,15 @@
              xmlns:Model="clr-namespace:ArtistHelper.Model"
              xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
              mc:Ignorable="d"
-             Width="5000"
-             Height="5000"
+             Width="1000"
+             Height="1000"
              d:DataContext="{d:DesignInstance {x:Type ViewModels:DrawViewModel}}">
     <ItemsControl ItemsSource="{Binding Path=ShapeList}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <Canvas />
+                <Canvas
+                    x:Name="DrawCanvas"
+                    Background="White"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemContainerStyle>
