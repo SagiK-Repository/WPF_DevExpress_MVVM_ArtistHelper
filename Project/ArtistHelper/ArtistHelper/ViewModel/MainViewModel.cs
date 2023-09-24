@@ -79,6 +79,7 @@ namespace ArtistHelper.ViewModel
         }
         #endregion
 
+        #region private Method
         private void _caseSwitch(string receiveMessage)
         {
             if (receiveMessage.StartsWith("DockLayoutManagerEventsService -> MainViewModel : Docking Item Activating : "))
@@ -86,7 +87,13 @@ namespace ArtistHelper.ViewModel
                 var panelName = receiveMessage.Substring("DockLayoutManagerEventsService -> MainViewModel : Docking Item Activating : ".Length);
                 _setPanel(panelName);
             }
+            else if (receiveMessage.StartsWith("DockLayoutManagerEventsService -> MainViewModel : Docking Closed : "))
+            {
+                var panelName = receiveMessage.Substring("DockLayoutManagerEventsService -> MainViewModel : Docking Closed : ".Length);
+                _deletePanel(panelName);
+            }
         }
+
         private void _setPanel(string panelName)
         {
             ArtistHelperDataBase.ViewPanelName = panelName;
@@ -97,5 +104,12 @@ namespace ArtistHelper.ViewModel
             else
                 _logger.Error("Fail Set Panel, panelModel is null");
         }
+
+        private void _deletePanel(string panelName)
+        {
+            var panelModel = ArtistHelperDataBase.PanelModels.FirstOrDefault(x => x.Caption == panelName);
+            ArtistHelperDataBase.PanelModels.Remove(panelModel);
+        } 
+        #endregion
     }
 }

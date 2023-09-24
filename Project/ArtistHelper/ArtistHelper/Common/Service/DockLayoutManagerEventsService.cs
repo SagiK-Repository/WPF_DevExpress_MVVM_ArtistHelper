@@ -27,7 +27,7 @@ namespace ArtistHelper.Common.Service
             if (string.IsNullOrWhiteSpace(message))
                 return;
 
-            var splitMessage = message.Split(new[] { "->", " : " }, StringSplitOptions.RemoveEmptyEntries);
+            var splitMessage = message.Split(new[] {" : "}, StringSplitOptions.RemoveEmptyEntries);
 
             if (splitMessage[2] == "Docking Activating")
             {
