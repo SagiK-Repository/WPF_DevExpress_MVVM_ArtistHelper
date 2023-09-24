@@ -17,7 +17,7 @@ namespace ArtistHelper.Common
         public static ArtistModel<double> GetDefaultArtistModel() => new ArtistModel<double>()
             {
                 Width = new Width<double>(1000, 0, 1000),
-                Height = new Height<double>(1000, 0, 1000),
+                Height = new Height<double>(600, 0, 1000),
                 LineGrid = new Grid<double>(1),
                 MinWidth = new Width<double>(10, 0, 1000),
                 MinHeight = new Height<double>(10, 0, 1000),
