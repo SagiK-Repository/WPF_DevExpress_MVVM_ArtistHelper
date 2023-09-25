@@ -94,6 +94,7 @@ namespace ArtistHelper.ViewModel
             }
         }
 
+
         private void _setPanel(string panelName)
         {
             ArtistHelperDataBase.ViewPanelName = panelName;
@@ -109,7 +110,18 @@ namespace ArtistHelper.ViewModel
         {
             var panelModel = ArtistHelperDataBase.PanelModels.FirstOrDefault(x => x.Caption == panelName);
             ArtistHelperDataBase.PanelModels.Remove(panelModel);
-        } 
+
+            var nextModel = ArtistHelperDataBase.PanelModels.LastOrDefault();
+            if (nextModel != null)
+                _sendMessage("DockLayoutManagerEventsService", $"Docking Activating : {nextModel.Caption}");
+        }
+
+        private void _sendMessage(string receive, string message)
+        {
+            var sendMessage = $"MainViewModel -> {receive} : {message}";
+            Messenger.Default.Send(sendMessage);
+            _logger.Debug("Messenger.Default.Send : " + sendMessage);
+        }
         #endregion
     }
 }

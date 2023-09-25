@@ -51,7 +51,15 @@ namespace ArtistHelper.ViewModel
             {
                 var newPanel = NewPanelService.GetNewPanel().Item1;
                 ArtistHelperDataBase.PanelModels.Add(newPanel);
+                _sendMessage("DockLayoutManagerEventsService", $"Docking Activating : {newPanel.Caption}");
             });
+        }
+
+        private void _sendMessage(string receive, string message)
+        {
+            var sendMessage = $"RibbonViewModel -> {receive} : {message}";
+            Messenger.Default.Send(sendMessage);
+            _logger.Debug("Messenger.Default.Send : " + sendMessage);
         }
         #endregion
     }

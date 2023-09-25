@@ -29,9 +29,9 @@ namespace ArtistHelper.Common.Service
 
             var splitMessage = message.Split(new[] {" : "}, StringSplitOptions.RemoveEmptyEntries);
 
-            if (splitMessage[2] == "Docking Activating")
+            if (splitMessage[1] == "Docking Activating")
             {
-                ActivatePanel(splitMessage[3]);
+                ActivatePanel(splitMessage[2]);
             }
         }
 
