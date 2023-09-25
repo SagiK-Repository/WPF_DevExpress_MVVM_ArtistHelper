@@ -95,7 +95,6 @@ namespace ArtistHelper.ViewModel
             }
         }
 
-
         private void _setPanel(string panelName)
         {
             ArtistHelperDataBase.ViewPanelName = panelName;
