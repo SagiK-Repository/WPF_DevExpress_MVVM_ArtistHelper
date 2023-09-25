@@ -385,28 +385,6 @@ Date | Version
   }
   ```
 
-<br>
-
-### Test 코드 예시
-
-- Value Test  
-  ```cs
-  [InlineData(1, 1.0)] // 일반 부여
-  [InlineData(4000, 2000.0)] // 최대 초과
-  [InlineData(-2000, 0.0)] // 최소 초과
-  [Theory(DisplayName = "DDD Value : Artist.Width<int> Value Test")]
-  public void DDDTest_Width_int_Test(object value, double outValue)
-  {
-      // Arange
-  
-      // Act
-      var width = new Width<int>(Convert.ToInt32(value));
-  
-      // Assert
-      width.GetValue().Should().Be(outValue);
-  }
-  ```  
-
 </details>
 
 <br><br>
