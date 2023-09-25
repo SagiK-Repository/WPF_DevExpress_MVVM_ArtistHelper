@@ -47,7 +47,7 @@
                               AllowRename="False"
                               ShowCaption="False"
                               AllowRestore="False"
-                              Padding="-0,-4,-4,-2"
+                              Padding="-2,-4,-4,-2"
                               AllowContextMenu="False"
                               FloatOnDoubleClick="False"
                               FocusContentOnActivating="False">
