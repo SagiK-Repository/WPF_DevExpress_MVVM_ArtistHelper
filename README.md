@@ -16,18 +16,18 @@ Date | Version
 
 ### 목표
 
-- [x] [1. ArtistHelper 프로그램 개요](1_artisthelper_프로그램_개요)
-  - [x] [개요](1_1_개요)
-  - [x] [요구사항](1_2_요구사항)
-  - [x] [요구사항 총족을 위한 기술적 내용](1_3_요구사항_총족을_위한_기술적_내용)
-- [x] [2. ArtistHelper 설계](2_artisthelper_설계)
-  - [x] [개발 환경 설계](2_1_개발환경_설계)
-- [x] [3. ArtistHelper 개발](3_artisthelper_개발)
-  - [x] [프로젝트 생성](3_1_프로젝트_생성)
-  - [x] [DevExpress 적용](3_2_devexpress_적용)
-  - [x] [MVVM 적용](3_3_mvvm_적용)
-  - [x] [Test 적용](3_4_test_적용)
-  - [x] [DDD 구조 적용](3_5_ddd_구조_적용)
+- [x] [1. ArtistHelper 프로그램 개요](#1-artisthelper-프로그램-개요)
+  - [x] [개요](#1-1-개요)
+  - [x] [요구사항](#1-2-요구사항)
+  - [x] [요구사항 총족을 위한 기술적 내용](#1-3-요구사항-총족을-위한-기술적-내용)
+- [x] [2. ArtistHelper 설계](#2-artisthelper-설계)
+  - [x] [개발 환경 설계](#2-1-개발환경-설계)
+- [x] [3. ArtistHelper 개발](#3-artisthelper-개발)
+  - [x] [프로젝트 생성](#3-1-프로젝트-생성)
+  - [x] [DevExpress 적용](#3-2-devexpress-적용)
+  - [x] [MVVM 적용](#3-3-mvvm-적용)
+  - [x] [Test 적용](#3-4-test-적용)
+  - [x] [DDD 구조 적용](#3-5-ddd-구조-설계)
 
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
@@ -121,7 +121,7 @@ Date | Version
 
 <br><br>
 
-## 3-2 DevExpess 적용
+## 3-2 DevExpress 적용
 
 <details><summary>접기/펼치기</summary>
 
@@ -456,4 +456,4 @@ Date | Version
       // ...
   ```
 
-</details>  
+</details>
