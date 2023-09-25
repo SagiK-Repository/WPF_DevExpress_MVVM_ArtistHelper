@@ -26,9 +26,9 @@
         <UserControl Content="{Binding RibbonViews}" />
         <!--#endregion-->
 
-        <dxdo:LayoutGroup Caption="LeftLayout"
-                          Grid.Row="1"
-                          Margin="4">
+        <dxdo:DockLayoutManager Grid.Row="1"
+                                Margin="4">
+            <dxdo:LayoutGroup Caption="LeftLayout">
 
             <!--#region PannelView-->
             <dxdo:LayoutPanel Caption="Control Tool"
@@ -88,5 +88,6 @@
             <!--#endregion-->
 
         </dxdo:LayoutGroup>
+        </dxdo:DockLayoutManager>
     </Grid>
 </Window>
