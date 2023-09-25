@@ -68,6 +68,8 @@
                      MaxLength="50"
                      Text="{Binding BoxCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </dxlc:LayoutItem>
+        
+        <!-- Figure Type
         <dxlc:LayoutItem Label="Figure Type"
                          VerticalAlignment="Top"
                          InputScope="Default">
@@ -83,6 +85,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </dxlc:LayoutItem>
+         -->
         <!--#endregion-->
 
     </dxlc:LayoutControl>
