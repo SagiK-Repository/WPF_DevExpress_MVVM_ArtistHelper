@@ -2,7 +2,6 @@
 using ArtistHelper.Model;
 using ArtistHelper.Common.ShapeList;
 using DevExpress.Mvvm;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 
