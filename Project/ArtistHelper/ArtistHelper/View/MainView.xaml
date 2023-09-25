@@ -30,16 +30,16 @@
                                 Margin="4">
             <dxdo:LayoutGroup Caption="LeftLayout">
 
-            <!--#region PannelView-->
-            <dxdo:LayoutPanel Caption="Control Tool"
+                <!--#region PannelView-->
+                <dxdo:LayoutPanel Caption="Control Tool"
                               MinWidth="250"
                               ItemWidth="250"
                               AllowClose="False" 
-                              Content="{Binding PanelViews}"/>
-            <!--#endregion-->
+                              Content="{Binding PanelViews}" />
+                <!--#endregion-->
 
-            <!--#region DrawView-->
-            <dxdo:LayoutPanel ItemWidth="3*"
+                <!--#region DrawView-->
+                <dxdo:LayoutPanel ItemWidth="3*"
                               AllowDrag="False"
                               AllowMove="False"
                               AllowFloat="False"
@@ -52,42 +52,42 @@
                               FloatOnDoubleClick="False"
                               FocusContentOnActivating="False">
 
-                <dxdo:DockLayoutManager x:Name="DataGridDock"
+                    <dxdo:DockLayoutManager x:Name="DataGridDock"
                                         ItemsSource="{Binding PanelModels, UpdateSourceTrigger=PropertyChanged}">
-                    <dxdo:DockLayoutManager.Resources>
-                        <Style x:Key="BaseStyle"
+                        <dxdo:DockLayoutManager.Resources>
+                            <Style x:Key="BaseStyle"
                                TargetType="dxdo:LayoutPanel">
-                            <Setter Property="Caption"
+                                <Setter Property="Caption"
                                     Value="{Binding Caption}" />
-                            <Setter Value="True"
+                                <Setter Value="True"
                                     Property="Focusable" />
-                            <Setter Value="150"
+                                <Setter Value="150"
                                     Property="TabCaptionWidth" />
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <UserControl Content="{Binding DrawViews, UpdateSourceTrigger=PropertyChanged}" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                        <Style TargetType="dxdo:DocumentPanel"
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <UserControl Content="{Binding DrawViews, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <Style TargetType="dxdo:DocumentPanel"
                                BasedOn="{StaticResource BaseStyle}" />
-                    </dxdo:DockLayoutManager.Resources>
-                    <dxmvvm:Interaction.Behaviors>
-                        <Service:DockLayoutManagerEventsService />
-                    </dxmvvm:Interaction.Behaviors>
-                    <dxdo:LayoutGroup x:Name="root">
-                        <dxdo:DocumentGroup Name="documentGroup"
+                        </dxdo:DockLayoutManager.Resources>
+                        <dxmvvm:Interaction.Behaviors>
+                            <Service:DockLayoutManagerEventsService />
+                        </dxmvvm:Interaction.Behaviors>
+                        <dxdo:LayoutGroup x:Name="root">
+                            <dxdo:DocumentGroup Name="documentGroup"
                                             DestroyOnClosingChildren="False"
                                             ClosePageButtonShowMode="InAllTabPageHeaders" />
-                    </dxdo:LayoutGroup>
-                </dxdo:DockLayoutManager>
+                        </dxdo:LayoutGroup>
+                    </dxdo:DockLayoutManager>
 
-            </dxdo:LayoutPanel>
-            <!--#endregion-->
+                </dxdo:LayoutPanel>
+                <!--#endregion-->
 
-        </dxdo:LayoutGroup>
+            </dxdo:LayoutGroup>
         </dxdo:DockLayoutManager>
     </Grid>
 </Window>
