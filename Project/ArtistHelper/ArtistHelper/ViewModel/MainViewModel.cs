@@ -2,6 +2,7 @@
 using ArtistHelper.Model;
 using ArtistHelper.View;
 using DevExpress.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Utility.LogService;
@@ -114,6 +115,8 @@ namespace ArtistHelper.ViewModel
             var nextModel = ArtistHelperDataBase.PanelModels.LastOrDefault();
             if (nextModel != null)
                 _sendMessage("DockLayoutManagerEventsService", $"Docking Activating : {nextModel.Caption}");
+
+            GC.Collect();
         }
 
         private void _sendMessage(string receive, string message)
