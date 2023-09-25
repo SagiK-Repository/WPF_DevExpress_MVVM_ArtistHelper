@@ -1,9 +1,18 @@
-문서정보 : 2023.01.08.~ 작성, 작성자 [@SAgiKPJH](https://github.com/SAgiKPJH)
+문서정보 : 2023.01.08.~09.25. 작성, 작성자 [@SAgiKPJH](https://github.com/SAgiKPJH)
 
-<br>
+<img src="https://github.com/SagiK-Repository/WPF_DevExpress_MVVM_ArtistHelper/assets/66783849/9f99eaff-eee9-455c-a125-ef9e00c8d984"/>
+
+<br/>
 
 # WPF_DevExpress_MVVM_ArtistHelper
 DevExpress MVVM WPF로 만든 ArtistHelper
+
+### Version 정보
+
+Date | Version
+-- | --
+~ 2023-09-25 | v0.1.2
+
 
 ### 목표
 
@@ -11,20 +20,14 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   - [x] 개요
   - [x] 요구사항
   - [x] 요구사항 총족을 위한 기술적 내용
-- [ ] 2. ArtistHelper 설계
-  - [ ] 개발 환경 설계
-- [x] 3. ArtistHelper 기본 구축
-  - [x] 기본 구축
-    - [x] 프로젝트 구축
-    - [x] DevExpress
-      - [x] DevExpress 설치
-    - [x] MVVM
-      - [x] MVVM 구조 구축
-      - [x] MVVM 기본 세팅
-    - [x] Test
-      - [x] Test 기본 세팅
-- [ ] 4. ArtistHelper 개발
-
+- [x] 2. ArtistHelper 설계
+  - [x] 개발 환경 설계
+- [x] 3. ArtistHelper 개발
+  - [x] 프로젝트 생성
+  - [x] DevExpress 적용
+  - [x] MVVM 적용
+  - [x] Test 적용
+  - [x] DDD 구조 적용
 
 ### 제작자
 [@SAgiKPJH](https://github.com/SAgiKPJH)
@@ -90,14 +93,18 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 - xUnit
 - FluentAssertion
 
+### Code 설계
+
+- DDD 구조 설계
+- MVVM 구조 설계
 
 <br><br><br>
 
-# 3. ArtistHelper 기본 구축
+# 3. ArtistHelper 개발
 
-## 3-1 기본 구축
+## 3-1 프로젝트 생성
 
-### 프로젝트 구축
+<details><summary>접기/펼치기</summary>
 
 - 프로젝트 생성
   - `WPF 앱(.NET Framework)` 프로젝트 생성 (.Net Framework 4.8)  
@@ -110,28 +117,45 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   - MainWindow.xaml 삭제  
   <img src="https://user-images.githubusercontent.com/66783849/214014928-460bdfef-7a63-46c2-9bf1-9810222d728a.png">
 
+</details>
+
 <br><br>
 
-## 3-2 DevExpess
+## 3-2 DevExpess 적용
+
+<details><summary>접기/펼치기</summary>
 
 - DevExpress 설치
   - [DevExpress 사이트](https://www.devexpress.com/products/net/controls/wpf/)
 - DevExpress 참조 추가
   - DevExpress.Data.Desktop
   - DevExpress.Data
+  - DevExpress.DataAccess
+  - DevExpress.Drawing
+  - DevExpress.Images
   - DevExpress.Mvvm
+  - DevExpress.Office.Core
+  - DevExpress.Pdf.Core
+  - DevExpress.Pdf.Drawing
+  - DevExpress.Printing.Core
+  - DevExpress.RichEdit.Core
   - DevExpress.Xpf.Core
   - DevExpress.Xpf.Docking
   - DevExpress.Xpf.Layout.Core
   - DevExpress.Xpf.LayoutControl
   - DevExpress.Xpf.Ribbon  
+  - DevExpress.Themes.Office2019Coroful
+  - DevExpress.Xpo  
   <img src="https://user-images.githubusercontent.com/66783849/214018272-67d2e82d-8f95-48c2-94c7-6cde4e82a52c.png" width="350">  
   <img src="https://user-images.githubusercontent.com/66783849/214018323-cf6a1e81-13cd-44ff-917c-2b09f876ebf2.png" width="350">
 
+</details>
 
 <br><br>
 
-## 3-3 MVVM
+## 3-3 MVVM 적용
+
+<details><summary>접기/펼치기</summary>
 
 ### MVVM 구조 구축
 - View 폴더 생성
@@ -150,7 +174,7 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   - DrawModel.cs
 - Interface 폴더
   - IWindowView.cs  
-  <img src="https://user-images.githubusercontent.com/66783849/214014621-eb28b550-a95d-4515-b532-55f4f005ee4a.png" width="350">
+  <img src="https://user-images.githubusercontent.com/66783849/214014621-eb28b550-a95d-4515-b532-55f4f005ee4a.png" width="350">  
 
 <br>
 
@@ -307,10 +331,15 @@ DevExpress MVVM WPF로 만든 ArtistHelper
   - cmd를 열어 `taskkill /pid 24960 /f`를 입력한다. (숫자는 해당하는 Process 번호 입력)  
   <img src="https://user-images.githubusercontent.com/66783849/214023972-f6be3614-554e-40ee-8730-bfbcc84065e8.png" width="350">
 
+</details>
+
 <br><br>
 
-## 3-4 Test
+## 3-4 Test 적용
 
+<details><summary>접기/펼치기</summary>
+
+### 프로젝트 구성
 - Test 프로젝트 구성
   - `단위 테스트 프로젝트(.NET Framework)` 프로젝트 생성
 - Test Nuget Pakage 구성 (참조-NuGet패키지관리)
@@ -329,729 +358,8 @@ DevExpress MVVM WPF로 만든 ArtistHelper
     - DrawModel.Test.cs  
   <img src="https://user-images.githubusercontent.com/66783849/214026846-2a32e517-e4e6-4fae-842c-06ce4346543d.png">
 
-<br><br><br>
 
-# 4. ArtistHelper 개발
-
-## View(UI) 개발
-
-### MainView.xaml
-
-- MainViewModel.cs에 프로퍼티를 다음과 같이 구성한다.
-  ```cs
-  public class MainViewModel : ViewModelBase
-  {    
-      #region 프로퍼티
-      public RibbonView RibbonViews
-      {
-          get { return GetProperty(() => RibbonViews); }
-          set { SetProperty(() => RibbonViews, value); }
-      }
-      public RibbonViewModel RibbonViewModels
-      {
-          get { return GetProperty(() => RibbonViewModels); }
-          set { SetProperty(() => RibbonViewModels, value); }
-      }
-      public PanelView PanelViews
-      {
-          get { return GetProperty(() => PanelViews); }
-          set { SetProperty(() => PanelViews, value); }
-      }
-      public PanelViewModel PanelViewModels
-      {
-          get { return GetProperty(() => PanelViewModels); }
-          set { SetProperty(() => PanelViewModels, value); }
-      }
-      #endregion
-  }
-  ```
-- 다음과 같이 UserControl를 사용하여 View를 대입한다.
-  ```xml
-  <Window x:Class="ArtistHelper.View.MainView"
-          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-          xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
-          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-          xmlns:local="clr-namespace:ArtistHelper.View"
-          xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
-          mc:Ignorable="d"
-          Title="ArtistHelper"
-          Height="800"
-          Width="1000"
-          d:DataContext="{d:DesignInstance {x:Type ViewModels:MainViewModel}}">
-      <Grid>
-          <!--#region Grid.RowDefinitions-->
-          <Grid.RowDefinitions>
-              <RowDefinition Height="Auto" />
-              <RowDefinition Height="*" />
-          </Grid.RowDefinitions>
-          <!--#endregion-->
-  
-          <!--#region RibbonView-->
-          <UserControl Content="{Binding RibbonViews}" />
-          <!--#endregion-->
-  
-          <dxdo:LayoutGroup Caption="LeftLayout"
-                            Grid.Row="1"
-                            Margin="4">
-  
-              <!--#region PannelView-->
-              <dxdo:LayoutPanel Caption="Control Tool"
-                                MinWidth="250"
-                                ItemWidth="250"
-                                Content="{Binding PanelViews}"
-                                AllowClose="False" />
-              <!--#endregion-->
-  
-              <!--#region DrawView-->
-              <dxdo:LayoutGroup ItemWidth="3*"
-                                DestroyOnClosingChildren="False">
-                  <dxdo:DocumentGroup DestroyOnClosingChildren="False"
-                                      ClosePageButtonShowMode="InAllTabPageHeaders">
-                  </dxdo:DocumentGroup>
-              </dxdo:LayoutGroup>
-              <!--#endregion-->
-  
-          </dxdo:LayoutGroup>
-      </Grid>
-  </Window>
-  ```
-
-<br>
-
-### PanelView.xaml UI 개발
-
-- PanelView.xaml을 다음과 같이 구성한다.
-  ```xml
-  <UserControl x:Class="ArtistHelper.View.PanelView"
-               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-               xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
-               xmlns:local="clr-namespace:ArtistHelper.View"
-               xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
-               mc:Ignorable="d"
-               d:DataContext="{d:DesignInstance {x:Type ViewModels:PanelViewModel}}">
-      <dxlc:LayoutControl Padding="4"
-                          ItemSpace="4"
-                          Orientation="Vertical">
-          <!--#region Label & TextBox-->
-          <dxlc:LayoutItem Label="Width"
-                           VerticalAlignment="Top"
-                           InputScope="Default">
-              <TextBox MaxHeight="24"
-                       MaxLength="50"/>
-          </dxlc:LayoutItem>
-          <dxlc:LayoutItem Label="Height"
-                           VerticalAlignment="Top"
-                           InputScope="Default">
-              <TextBox MaxHeight="24"
-                       MaxLength="50" />
-          </dxlc:LayoutItem>
-          <dxlc:LayoutItem Label="LineGrid"
-                           VerticalAlignment="Top"
-                           InputScope="Default">
-              <TextBox MaxHeight="24"
-                       MaxLength="50" />
-          </dxlc:LayoutItem>
-          <dxlc:LayoutItem Label="Rect Min Width"
-                           VerticalAlignment="Top"
-                           InputScope="Default">
-              <TextBox MaxHeight="24"
-                       MaxLength="50" />
-          </dxlc:LayoutItem>
-          <dxlc:LayoutItem Label="Rect Min Height"
-                           VerticalAlignment="Top"
-                           InputScope="Default">
-              <TextBox MaxHeight="24"
-                       MaxLength="50" />
-          </dxlc:LayoutItem>
-          <dxlc:LayoutItem Label="EndPoint X"
-                           VerticalAlignment="Top"
-                           InputScope="Default">
-              <TextBox MaxHeight="24"
-                       MaxLength="50" />
-          </dxlc:LayoutItem>
-          <dxlc:LayoutItem Label="EndPoint Y"
-                           VerticalAlignment="Top"
-                           InputScope="Default">
-              <TextBox MaxHeight="24"
-                       MaxLength="50" />
-          </dxlc:LayoutItem>
-          <dxlc:LayoutItem Label="Box Count"
-                           VerticalAlignment="Top"
-                           InputScope="Default">
-              <TextBox MaxHeight="24"
-                       MaxLength="50" />
-          </dxlc:LayoutItem>
-          <dxlc:LayoutItem Label="Figure Type"
-                           VerticalAlignment="Top"
-                           InputScope="Default">
-              <ComboBox HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Width="Auto">
-                  <ComboBox.ItemTemplate>
-                      <DataTemplate>
-                          <StackPanel Orientation="Horizontal">
-                              <TextBlock Text="{Binding Name}" />
-                          </StackPanel>
-                      </DataTemplate>
-                  </ComboBox.ItemTemplate>
-              </ComboBox>
-          </dxlc:LayoutItem>
-          <!--#endregion-->
-  
-      </dxlc:LayoutControl>
-  </UserControl>
-  ```
-- MainViewModel.cs를 다음과 같이 구성한다.
-  ```cs
-  #region 생성자
-  public MainViewModel()
-  {
-      Initialize();
-  }
-  #endregion
-
-  #region 메소드
-  void Initialize()
-  {
-      RibbonViewModels = new RibbonViewModel();
-      RibbonViews = new RibbonView(RibbonViewModels);
-
-      PanelViewModels = new PanelViewModel();
-      PanelViews = new PanelView(PanelViewModels);
-  }
-  #endregion
-  ```
-  <img src="https://user-images.githubusercontent.com/66783849/214079359-4a0fd961-e649-4f45-b249-dc41fa82914c.png" width="350">
-
-<br>
-
-### RibbonView.xaml UI 개발
-
-- RibbonView.xaml를 다음과 같이 구성한다.
-  ```xml
-  <UserControl x:Class="ArtistHelper.View.RibbonView"
-               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-               xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-               xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
-               xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
-               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-               xmlns:local="clr-namespace:ArtistHelper.View"
-               xmlns:ViewModels="clr-namespace:ArtistHelper.ViewModel"
-               mc:Ignorable="d"
-               d:DataContext="{d:DesignInstance {x:Type ViewModels:RibbonViewModel}}">
-      <dxr:RibbonControl ShowApplicationButton="False"
-                         ToolbarShowCustomizationButton="False"
-                         RibbonStyle="Office2019"
-                         RibbonHeaderVisibility="Collapsed">
-          <dxr:RibbonPage Caption="Control">
-              <dxr:RibbonPageGroup Caption="Image">
-                  <dxb:BarButtonItem x:Name="newBtn"
-                                     Content="New"
-                                     KeyGesture="Ctrl+N"
-                                     CloseSubMenuOnClick="True"
-                                     BarItemDisplayMode="ContentAndGlyph"
-                                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"
-                                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"/>
-                  <dxb:BarButtonItem x:Name="saveBtn"
-                                     Content="Save"
-                                     KeyGesture="Ctrl+S"
-                                     CloseSubMenuOnClick="True"
-                                     BarItemDisplayMode="ContentAndGlyph"
-                                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"
-                                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"/>
-              </dxr:RibbonPageGroup>
-          </dxr:RibbonPage>
-      </dxr:RibbonControl>
-  </UserControl>
-  ```
-  <img src="https://user-images.githubusercontent.com/66783849/214082371-284ccd8e-d176-4b7b-ad54-bd2d0df1b56d.png" width="350">
-
-<br><br>
-
-## ViewModel(기능) 개발
-
-### RibbonViewModel.cs 개발
-
-- RibbonViewModel에 Command를 연결하고, MainViewModel로 Messenger를 전달한다.
-  ```cs
-  #region 커멘드
-  public ICommand NewCommand { get; set; }
-  public ICommand SaveCommand { get; set; }
-  #endregion
-
-  #region 생성자
-  public RibbonViewModel()
-  {
-      SaveCommand = new DelegateCommand(_saveCommandAction);
-      NewCommand = new DelegateCommand(_newCommandAction);
-  }
-  #endregion
-
-  #region 메소드
-  private void _saveCommandAction()
-  {
-      Messenger.Default.Send("SavePanel");
-  }
-
-  private void _newCommandAction()
-  {
-      Messenger.Default.Send("NewPanel");
-  }
-  #endregion
-  ```
-  ```xml
-  <dxb:BarButtonItem x:Name="newBtn"
-                     Content="New"
-                     KeyGesture="Ctrl+N"
-                     CloseSubMenuOnClick="True"
-                     Command="{Binding Path=NewCommand}"
-                     BarItemDisplayMode="ContentAndGlyph"
-                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"
-                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/New.svg}"/>
-  <dxb:BarButtonItem x:Name="saveBtn"
-                     Content="Save"
-                     KeyGesture="Ctrl+S"
-                     CloseSubMenuOnClick="True"
-                     Command="{Binding Path=SaveCommand}"
-                     BarItemDisplayMode="ContentAndGlyph"
-                     Glyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"
-                     LargeGlyph="{dx:DXImage SvgImages/Outlook Inspired/Save.svg}"/>
-  ```
-- MainViewModel은 다음과 같이 추가한다.
-  ```cs
-  #region 메소드
-  void Initialize()
-  {
-      RibbonViewModels = new RibbonViewModel();
-      RibbonViews = new RibbonView(RibbonViewModels);
-
-      PanelViewModels = new PanelViewModel();
-      PanelViews = new PanelView(PanelViewModels);
-
-      Messenger.Default.Register<string>(this, OnMessage);
-  }
-  #endregion
-
-  #region Messenger Method
-  private void OnMessage(string text)
-  {
-      if (text == null || text.Length == 0)
-          return;
-
-      var messengerType = StringToMessenger(text);
-
-      switch (messengerType)
-      {
-          case _messengerType.SavePanel:
-              MessageBox.Show("SavePanel");
-              break;
-
-          case _messengerType.NewPanel:
-              MessageBox.Show("NewPanel");
-              break;
-
-          default:
-              break;
-      }
-  }
-
-  private _messengerType StringToMessenger(string message)
-  {
-      var type = default(_messengerType);
-      foreach (_messengerType t in Enum.GetValues(typeof(_messengerType)))
-          if (t.ToString().StartsWith(message, StringComparison.CurrentCultureIgnoreCase))
-          {
-              type = t;
-              break;
-          }
-
-      return type;
-  }
-  #endregion
-  ```
-  <img src="https://user-images.githubusercontent.com/66783849/214090404-f345efc8-2755-4d46-83fc-de5b2c4e5250.png" width="350">
-
-<br>
-
-### ArtistModel.cs 개발
-
-- ArtistModel.cs를 다음과 같이 구성한다.
-  ```cs
-  #region 프로퍼티
-  public int Width { get; set; } // 이미지 가로 사이즈
-  public int Height { get; set; } // 이미지 세로 사이즈
-  public int LineGrid { get; set; } // 선 굵기
-  public int MinWidth { get; set; } // 사각형 최소 가로 길이
-  public int MinHeight { get; set; } // 사각형 최소 세로 길이
-  public int EndPointX { get; set; } // 종점 x
-  public int EndPointY { get; set; } // 종점 y
-  public int BoxCount { get; set; } // 사각형 개수
-  public int FigureType { get; set; } // 도형 종류
-  public string Name { get; set; }
-  #endregion
-
-  #region 생성자
-  public ArtistModel() { }
-  public ArtistModel(ArtistModel artists)
-  {
-      Width = artists.Width;
-      Height = artists.Height;
-      LineGrid = artists.LineGrid;
-      MinWidth = artists.MinWidth;
-      MinHeight = artists.MinHeight;
-      EndPointX = artists.EndPointX;
-      EndPointY = artists.EndPointY;
-      BoxCount = artists.BoxCount;
-      FigureType = artists.FigureType;
-  }
-  #endregion
-  ```
-
-<br>
-
-### ArtistModel DDD형식 구현
-
-- 아래는 Width 변수에 대해서 DDD로 구현하였다. 나머지 변수들도 특성에 맞게 구현한다.
-  ```cs
-  public abstract class ValueObject
-     {
-         protected static bool EqualOperator(ValueObject left, ValueObject right)
-         {
-             if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
-             {
-                 return false;
-             }
-             return ReferenceEquals(left, right) || left.Equals(right);
-         }
- 
-         protected static bool NotEqualOperator(ValueObject left, ValueObject right)
-         {
-             return !(EqualOperator(left, right));
-         }
- 
-         protected abstract IEnumerable<object> GetEqualityComponents();
- 
-         public override bool Equals(object obj)
-         {
-             if (obj == null || obj.GetType() != GetType())
-             {
-                 return false;
-             }
- 
-             var other = (ValueObject)obj;
- 
-             return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
-         }
- 
-         public override int GetHashCode()
-         {
-             return GetEqualityComponents()
-                 .Select(x => x != null ? x.GetHashCode() : 0)
-                 .Aggregate((x, y) => x ^ y);
-         }
-         public static bool operator ==(ValueObject one, ValueObject two)
-         {
-             return EqualOperator(one, two);
-         }
- 
-         public static bool operator !=(ValueObject one, ValueObject two)
-         {
-             return NotEqualOperator(one, two);
-         }
-     }
- 
-  public class Width : ValueObject
-  {
-      private int _minValue = 0;
-      private int _maxValue = 2000;
-      private int _value;
- 
-      public Width() => _value = 0;
- 
-      public Width(int value)
-      {
-          ModifyValue(value);
-      }
-      public Width(int value, int minValue, int maxValue) : this(value)
-      {
-          SetMinValue(minValue);
-          SetMaxValue(maxValue);
-      }
- 
-      public void  ModifyValue(int value)
-      {
-          //if(value == null) throw new ArgumentNullException(nameof(value));
- 
-          if (value < _minValue)
-          {
-              _value = _minValue;
-              throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
-          }
- 
-          if (value > _maxValue)
-          {
-              _value = _maxValue;
-              throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
-          }
- 
-          _value = value;
-      }
-      public void SetMinValue(int value)
-      {
-          if(value > _maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
-          
-          if (_value < value)
-          {
-              _value = value;
-              _minValue = value;
-              throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 작습니다. 임의로 Value값을 조정합니다.");
-          }
-          _minValue = value;
-      }
-      public void SetMaxValue(int value)
-      {
-          if (value < _minValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
- 
-          if (_value > value)
-          {
-              _value = value;
-              _maxValue = value;
-              throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 큽니다. 임의로 Value값을 조정합니다.");
-          }
-          _maxValue = value;
-      }
-      public void SetMinMaxValue(int minValue, int maxValue)
-      {
-          _minValue = minValue;
-          _maxValue = maxValue;
-      }
-      public int GetValue()
-      {
-          return _value;
-      }
-      protected override IEnumerable<object> GetEqualityComponents()
-      {
-          yield return _value;
-      }
-  }
-  ```
-- 프로퍼티를 다음과 같이 구성한다.
-  ```cs
-  #region 프로퍼티
-  public Width Width { get; set; } // 이미지 가로 사이즈
-  ```
-
-<br>
-
-### ArtistModel DDD형식 Test
-
-- DDD Value를 Test 하기 위해, 다음과 같이 Test 프로젝트 참조에서 Artist 프로젝트를 추가한다.
-  <img src="https://user-images.githubusercontent.com/66783849/214193649-9e73d3b5-02d4-4a95-b371-9848d2cac22c.png" width="500">
-- 다음과 같이 코드를 구성한다.
-  ```cs
-  using ArtistHelper.Model;
-  using FluentAssertions;
-  using Xunit;
-  
-  namespace ArtistHelper.test.Model
-  {
-      public class ArtistModel_Test
-      {
-          #region DDD Value Test
-          [Fact(DisplayName = "DDD Value - Artist.Width")]
-          public void DDDTest_Width_Test()
-          {
-              //Arange
-              var width = new Width(0);
-  
-              //Act
-              bool isBool = width.GetValue() == 0;
-  
-              //Asserts
-              isBool.Should().BeTrue();
-          }
-          #endregion
-      }
-  }
-  ```
-- 테스트 탐색기를 열어, 테스트를 진행한다.
-  <img src="https://user-images.githubusercontent.com/66783849/214194526-c04c9b2f-e27f-411a-a695-8627c511bb7b.png" width="700">
-  
-
-<br>
-
-
-### ArtistModel DDD 형식 구현 확장
-
-- Width와 Height는 같은 속성을 갖고 있다. 다음과 같이 선언할 수 있다.
-  ```cs
-  public class Height : Width 
-  {
-      public Height() : base() { }
-      public Height(int value) : base(value) { }
-      public Height(int value, int minValue, int maxValue) : base(value, minValue, maxValue) { }
-  }
-  ```
-- Test 시에도 Width와 Height가 문제없이 동작하는지 확인한다.
-
-<br>
-
-### ArtistModel DDD 형식 구현 확장 : Generic
-
-- int, double 형식등을 고려하여 다음과 같이 재구성하였다.
-  ```cs
-  public class ArtistModel<T> where T : struct
-  {
-      #region 프로퍼티
-        public Width<T> Width { get; set; } // 이미지 가로 사이즈
-        public Height<T> Height { get; set; } // 이미지 세로 사이즈
-        public Grid<T> LineGrid { get; set; } // 선 굵기
-        public Width<T> MinWidth { get; set; } // 사각형 최소 가로 길이
-        public Height<T> MinHeight { get; set; } // 사각형 최소 세로 길이
-        public Point<T> EndPoint { get; set; } // 종점
-        public int BoxCount { get; set; } // 사각형 개수
-        public int FigureType { get; set; } // 도형 종류
-        public string Name { get; set; }
-        #endregion
-
-      #region 생성자
-        public ArtistModel() { }
-        public ArtistModel(ArtistModel<T> artists)
-        {
-            Width = artists.Width;
-            Height = artists.Height;
-            LineGrid = artists.LineGrid;
-            MinWidth = artists.MinWidth;
-            MinHeight = artists.MinHeight;
-            EndPoint = artists.EndPoint;
-            BoxCount = artists.BoxCount;
-            FigureType = artists.FigureType;
-        }
-        #endregion
-  }
-
-  public class Width<T> : ValueObject where T : struct
-    {
-        private double _minValue = 0;
-        private double _maxValue = 2000;
-        private double _value;
-        private bool _exceptionSwitch = false;
-
-        public Width() => _value = 0.0;
-
-        public Width(T value)
-        {
-            ModifyValue(Convert.ToDouble(value));
-        }
-        public Width(double value)
-        {
-            ModifyValue(value);
-        }
-        public Width(T value, T minValue, T maxValue)
-        {
-            SetMinValue(Convert.ToDouble(minValue));
-            SetMaxValue(Convert.ToDouble(maxValue));
-            ModifyValue(Convert.ToDouble(value));
-        }
-        public Width(T value, double minValue, double maxValue)
-        {
-            SetMinValue(minValue);
-            SetMaxValue(maxValue);
-            ModifyValue(Convert.ToDouble(value));
-        }
-        public Width(double value, double minValue, double maxValue)
-        {
-            SetMinValue(minValue);
-            SetMaxValue(maxValue);
-            ModifyValue(value);
-        }
-
-        public void ModifyValue(double value)
-        {
-            //if(value == null) throw new ArgumentNullException(nameof(value));
-
-            if (value < _minValue)
-            {
-                _value = _minValue;
-                if (_exceptionSwitch)
-                    throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
-                return;
-            }
-
-            if ( value > _maxValue)
-            {
-                _value = _maxValue;
-                if (_exceptionSwitch)
-                    throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다. 임의로 값을 조정합니다.");
-                return;
-            }
-
-            _value = value;
-        }
-        public void SetMinValue(double value)
-        {
-            if (value > _maxValue) throw new ArgumentException("입력 값이 " + _maxValue.ToString() + "보다 큽니다.");
-
-            if (_value < value)
-            {
-                _value = value;
-                _minValue = value;
-                if (_exceptionSwitch)
-                    throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 작습니다. 임의로 Value값을 조정합니다.");
-                return;
-            }
-            _minValue = value;
-        }
-        public void SetMaxValue(double value)
-        {
-            if (value < _minValue) throw new ArgumentException("입력 값이 " + _minValue.ToString() + "보다 작습니다.");
-
-            if (_value > value)
-            {
-                _value = value;
-                _maxValue = value;
-                if (_exceptionSwitch)
-                    throw new ArgumentException("입력 값이 " + _value.ToString() + "보다 큽니다. 임의로 Value값을 조정합니다.");
-                return;
-            }
-            _maxValue = value;
-        }
-        public void SetMinMaxValue(T minValue, T maxValue)
-        {
-            SetMinValue(Convert.ToDouble(minValue));
-            SetMaxValue(Convert.ToDouble(maxValue));
-        }
-        public void SetMinMaxValue(double minValue, double maxValue)
-        {
-            SetMinValue(minValue);
-            SetMaxValue(maxValue);
-        }
-        public double GetValue()
-        {
-            return _value;
-        }
-
-        public void SetException(bool eSwitch)
-        {
-            _exceptionSwitch = eSwitch;
-        }
-        protected override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return _value;
-        }
-    }
-  ```
-
-<br>
-
-### ArtistModel DDD 형식 Test
+### Test 코드 구성
 
 - Test의 품질을 보다 향상시키기 위해, 다음 4가지를 고려하여 Test를 작성하였다.
   - Test는 기능별로 따로 구분해야 한다. (value Test, MinMax Test, Exception Test등)
@@ -1079,22 +387,73 @@ DevExpress MVVM WPF로 만든 ArtistHelper
 
 <br>
 
-### PanelModel.cs 개발
+### Test 코드 예시
 
-<br>
+- Value Test  
+  ```cs
+  [InlineData(1, 1.0)] // 일반 부여
+  [InlineData(4000, 2000.0)] // 최대 초과
+  [InlineData(-2000, 0.0)] // 최소 초과
+  [Theory(DisplayName = "DDD Value : Artist.Width<int> Value Test")]
+  public void DDDTest_Width_int_Test(object value, double outValue)
+  {
+      // Arange
+  
+      // Act
+      var width = new Width<int>(Convert.ToInt32(value));
+  
+      // Assert
+      width.GetValue().Should().Be(outValue);
+  }
+  ```  
 
-### PanelViewModel.cs 개발
-
-<br>
-
-### PanelViewModel.cs 개발
-
-<br>
-
-###
+</details>
 
 <br><br>
 
-##
+## 3-5 DDD 구조 설계
 
-###
+<details><summary>접기/펼치기</summary>
+
+- 최소단위 DDD 구성
+  ```cs
+  public class Width<T> : ValueObject where T : struct
+  {
+      private double _minValue = 0;
+      private double _maxValue = 2000;
+      private double _value;
+      private bool _exceptionSwitch = false;
+  
+      public Width() => _value = 0.0;
+  
+      public Width(T value)
+      {
+          ModifyValue(Convert.ToDouble(value));
+      }
+      public Width(double value)
+      {
+          ModifyValue(value);
+      }
+      public Width(T value, T minValue, T maxValue)
+      {
+          SetMinValue(Convert.ToDouble(minValue));
+          SetMaxValue(Convert.ToDouble(maxValue));
+          ModifyValue(Convert.ToDouble(value));
+      }
+      public Width(T value, double minValue, double maxValue)
+      {
+          SetMinValue(minValue);
+          SetMaxValue(maxValue);
+          ModifyValue(Convert.ToDouble(value));
+      }
+      public Width(double value, double minValue, double maxValue)
+      {
+          SetMinValue(minValue);
+          SetMaxValue(maxValue);
+          ModifyValue(value);
+      }
+
+      // ...
+  ```
+
+</details>
