@@ -34,8 +34,8 @@
             <dxdo:LayoutPanel Caption="Control Tool"
                               MinWidth="250"
                               ItemWidth="250"
-                              Content="{Binding PanelViews}"
-                              AllowClose="False" />
+                              AllowClose="False" 
+                              Content="{Binding PanelViews}"/>
             <!--#endregion-->
 
             <!--#region DrawView-->
