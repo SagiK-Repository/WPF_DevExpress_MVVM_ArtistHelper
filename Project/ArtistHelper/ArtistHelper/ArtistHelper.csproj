@@ -73,7 +73,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\ArtistHelperDataBase.cs" />
+    <Compile Include="Common\Service\CanvasImageService.cs" />
     <Compile Include="Common\Service\DockLayoutManagerEventsService.cs" />
+    <Compile Include="Common\Service\FileDialogService.cs" />
     <Compile Include="Common\Service\NewPanelService.cs" />
     <Compile Include="Common\ShapeList\Box.cs" />
     <Compile Include="Interface\IShape.cs" />
