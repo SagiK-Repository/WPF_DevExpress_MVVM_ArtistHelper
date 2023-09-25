@@ -74,7 +74,7 @@ namespace ArtistHelper.ViewModel
         #region Messenger Method
         private void OnMessage(string receiveMessage)
         {
-            _logger.Info("Receive Messaged");
+            _logger.Info($"Receive Messaged, {receiveMessage}");
             _logger.TryCatchStartEndLog("Switch Message", () => _caseSwitch(receiveMessage));
         }
         #endregion
